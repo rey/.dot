@@ -3,7 +3,7 @@
 
 # GIT AWARE PROMPT
 
-export GITAWAREPROMPT=~/dotfiles/.bash/git-aware-prompt
+export GITAWAREPROMPT=~/.dot/.bash/git-aware-prompt
 source $GITAWAREPROMPT/main.sh
 
 # PS1

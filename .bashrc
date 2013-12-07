@@ -1,6 +1,3 @@
-# PRETTY
-# export TERM=xterm-256color
-
 # GIT AWARE PROMPT
 
 export GITAWAREPROMPT=~/.dot/.bash/git-aware-prompt

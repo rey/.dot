@@ -1,0 +1,18 @@
+alias g='git'
+alias grep='grep --color=auto'
+alias grunt='grunt --verbose'
+alias j='jump'
+alias ls='ls -lags'
+alias ng.stop='sudo nginx -s stop'
+alias ng.start='sudo nginx'
+alias ng.reload='sudo nginx -s stop && sudo nginx'
+alias nano='vim'
+alias qq='git status'
+alias sudo='sudo '
+alias tmn="tmux new-session -s"
+alias tml="tmux ls"
+alias tma="tmux attach-session -t"
+alias tms="tmux switch-session -t"
+alias v='vim'
+alias va='vagrant'
+alias vi='vim'

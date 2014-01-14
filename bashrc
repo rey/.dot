@@ -1,14 +1,12 @@
 # ps1
 export PS1="\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;35m\]%\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 
-# set vim to be the default editor
-EDITOR=/usr/bin/vim
-VISUAL=/usr/bin/vim
+EDITOR=/usr/bin/vim           # set vim to be the default editor
+VISUAL=/usr/bin/vim           # set vim to be the default editor
 
-# use vim commands in bash
-set -o vi
+set -o vi                     # use vim commands in bash
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:$HOME/.rvm/bin     # Add RVM to PATH for scripting
 
 source ~/.dot/bash/aliases    # bash aliases
 source ~/.dot/bash/external   # external tools/functions

@@ -10,5 +10,3 @@
     ln -s ~/.dot/gitconfig_global ~/.gitconfig_global
     ln -s ~/.dot/signature ~/.signature
     cd ~/.dot
-    git submodule init
-    git submodule update

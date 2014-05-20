@@ -6,19 +6,19 @@ templates:
   default:
     date_format: '%Y-%m-%d %H:%M'
     template: '%date | %title%note'
-    wrap_width: 0
+    wrap_width: 80
   today:
-    date_format: '%_I:%M%P'
-    template: '%date: %title %interval%note'
-    wrap_width: 0
+    date_format: '%_H:%M'
+    template: '%date | %title%note'
+    wrap_width: 80
   last:
-    date_format: '%-I:%M%P on %a'
-    template: '%title (at %date)%odnote'
-    wrap_width: 88
+    date_format: '%_H:%M on %a'
+    template: '%date | %title%note'
+    wrap_width: 80
   recent:
-    date_format: '%_I:%M%P'
-    template: '%shortdate: %title'
-    wrap_width: 88
+    date_format: '%_H:%M'
+    template: '%date | %title%note'
+    wrap_width: 80
 views:
   done:
     date_format: '%_I:%M%P'

@@ -13,6 +13,7 @@ alias tmn="tmux new-session -s"
 alias tml="tmux ls"
 alias tma="tmux attach-session -t"
 alias tms="tmux switch-session -t"
+alias tree="tree -C"
 alias v='vim'
 alias va='vagrant'
 alias vi='vim'

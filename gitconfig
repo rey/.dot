@@ -27,3 +27,5 @@
   bon = !sh ~/.dot/shell/gitbon.sh
   rey = !sh ~/.dot/shell/gitrey.sh
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+	default = simple

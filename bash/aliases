@@ -1,6 +1,8 @@
+alias filemerge='open /Applications/Xcode.app/Contents/Applications/FileMerge.app'
 alias g='git'
 alias grep='grep --color=auto'
 alias grunt='grunt --verbose'
+alias ios='open /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
 alias j='jump'
 alias ls='ls -lags'
 alias ng.stop='sudo nginx -s stop'

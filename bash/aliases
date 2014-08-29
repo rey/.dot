@@ -10,6 +10,7 @@ alias ng.start='sudo nginx'
 alias ng.reload='sudo nginx -s stop && sudo nginx'
 alias nano='vim'
 alias qq='git status -sb'
+alias reboot = 'shutdown -r now'
 alias sudo='sudo '
 alias tmn="tmux new-session -s"
 alias tml="tmux ls"

@@ -1,28 +1,28 @@
 ---
-doing_file: ~/wwid/doing.md
+doing_file: "~/wwid/doing.md"
 current_section: Currently
 editor_app: 
 templates:
   default:
-    date_format: '%Y-%m-%d %H:%M'
-    template: '%date | %title%note'
+    date_format: "%Y-%m-%d %H:%M"
+    template: "%date | %title%note"
     wrap_width: 80
   today:
-    date_format: '%_H:%M'
-    template: '%date | %title%note'
+    date_format: "%_H:%M"
+    template: "%date | %title%note"
     wrap_width: 80
   last:
-    date_format: '%_H:%M on %a'
-    template: '%date | %title%note'
+    date_format: "%_H:%M on %a"
+    template: "%date | %title%note"
     wrap_width: 80
   recent:
-    date_format: '%_H:%M'
-    template: '%date | %title%note'
+    date_format: "%_H:%M"
+    template: "%date | %title%note"
     wrap_width: 80
 views:
   done:
-    date_format: '%_I:%M%P'
-    template: '%date | %title%note'
+    date_format: "%_I:%M%P"
+    template: "%date | %title%note"
     wrap_width: 0
     section: All
     count: 0
@@ -30,8 +30,8 @@ views:
     tags: done complete cancelled
     tags_bool: OR
   color:
-    date_format: '%F %_I:%M%P'
-    template: '%boldblack%date %boldgreen| %boldwhite%title%default%note'
+    date_format: "%F %_I:%M%P"
+    template: "%boldblack%date %boldgreen| %boldwhite%title%default%note"
     wrap_width: 0
     section: Currently
     count: 10

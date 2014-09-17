@@ -22,7 +22,7 @@
   #default = simple
 [core]
   editor = /usr/bin/vim
-  excludesfile = /Users/rey/dotfiles/.gitignore_global
+  excludesfile = ~/.gitignore_global
 [alias]
   bon = !sh ~/.dot/shell/gitbon.sh
   rey = !sh ~/.dot/shell/gitrey.sh

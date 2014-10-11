@@ -6,3 +6,4 @@ ln -sf ~/.dot/bashrc ~/.bashrc
 ln -sf ~/.dot/gitconfig ~/.gitconfig
 ln -sf ~/.dot/gitignore_global ~/.gitignore_global
 ln -sf ~/.dot/signature ~/.signature
+ln -sf ~/.dot/plan ~/.plan

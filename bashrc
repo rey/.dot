@@ -1,5 +1,7 @@
 # ps1
-export PS1="\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;35m\]%\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+# export PS1="\[\e[00;36m\]\u\[\e[0m\]\[\e[00;37m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;35m\]%\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+
+export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 
 EDITOR=/usr/bin/vim           # set vim to be the default editor
 VISUAL=/usr/bin/vim           # set vim to be the default editor

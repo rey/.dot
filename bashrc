@@ -8,9 +8,6 @@ set -o vi                     # use vim commands in bash
 
 PATH=$PATH:$HOME/.rvm/bin     # Add RVM to PATH for scripting
 
-source ~/.dot/bash/aliases    # bash aliases
-source ~/.dot/bash/external   # external tools/functions
-
 # alias
 
 alias hash:6='date | md5sum | cut -c 1-6'

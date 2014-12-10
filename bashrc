@@ -10,9 +10,6 @@ PATH=$PATH:$HOME/.rvm/bin     # Add RVM to PATH for scripting
 
 # alias
 
-alias hash:6='date | md5sum | cut -c 1-6'
-alias hash:8='date | md5sum | cut -c 1-8'
-alias hash:10='date | md5sum | cut -c 1-10'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ls='ls -lags'
@@ -20,13 +17,17 @@ alias nano='vim'
 alias qq='git status -sb'
 alias reboot='shutdown -r now'
 alias sudo='sudo '
-alias tmn="tmux new-session -s"
-alias tml="tmux ls"
-alias tma="tmux attach -t"
-alias tms="tmux switch -t"
 alias tree="tree -C"
 alias v='vim'
 alias vi='vim'
+
+## tmux alias
+
+alias tmn="tmux new-session -s"
+alias tma="tmux attach -t"
+alias tmd="tmux detach"
+alias tml="tmux ls"
+alias tms="tmux switch -t"
 
 # external
 

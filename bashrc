@@ -23,7 +23,7 @@ alias vi='vim'
 
 ## tmux alias
 
-alias tmn="tmux new-session -s"
+alias tmn="tmux new -s"
 alias tma="tmux attach -t"
 alias tmd="tmux detach"
 alias tml="tmux ls"

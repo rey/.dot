@@ -16,6 +16,7 @@ alias ls='ls -lags'
 alias nano='vim'
 alias qq='git status -sb'
 alias reboot='shutdown -r now'
+alias sing='ruby ~/.dot/tools/spark-ping'
 alias sudo='sudo '
 alias tree="tree -C"
 alias v='vim'

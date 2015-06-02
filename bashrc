@@ -12,6 +12,7 @@ PATH=$PATH:$HOME/.rvm/bin     # Add RVM to PATH for scripting
 
 alias grep='grep --color=auto'
 alias j='jump'
+alias ip='ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2'
 alias ls='ls -lags'
 alias nano='vim'
 alias qq='git status -sb'
@@ -46,3 +47,6 @@ function unmark {
 function marks {
   \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
 }
+
+# https://gist.github.com/atomotic/721aefe8c72ac095cb6e
+function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-Location | awk '{print "https://web.archive.org"$2}'; }

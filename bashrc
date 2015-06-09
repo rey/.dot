@@ -50,3 +50,16 @@ function marks {
 
 # https://gist.github.com/atomotic/721aefe8c72ac095cb6e
 function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-Location | awk '{print "https://web.archive.org"$2}'; }
+
+# creates a zip file of the form name_ddmmyy_hhmm_descripton.zip
+# usage: `zzip folder`
+function zzip() {
+  echo "Enter zip description" && read description;
+  if [ "$description" != "" ];
+    then
+      title=${1%/}_$(date +"%d%m%y_%H%M")_${description// /_};
+      zip -r ${title}.zip $1;
+    else
+      echo "PROVIDE A DESCRIPTION";
+  fi
+}

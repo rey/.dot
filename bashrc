@@ -60,6 +60,14 @@ function zzip() {
     then
       title=${1%/}_$(date +"%d%m%y_%H%M")_${description// /_};
       zip -r ${title}.zip $1;
+      if [ $? -eq 0 ];
+        then
+          echo
+          echo "${title}.zip has been created!";
+        else
+          echo
+          echo "ERROR: zzip has failed :(";
+      fi
     else
       echo "ERROR: You must provide a description for your ZIP";
   fi
@@ -73,6 +81,14 @@ function ttar() {
     then
       title=${1%/}_$(date +"%d%m%y_%H%M")_${description// /_};
       tar -zcvf ${title}.tar.gz $1;
+      if [ $? -eq 0 ];
+        then
+          echo
+          echo "${title}.tar.gz has been created!";
+        else
+          echo
+          echo "ERROR: ttar has failed :(";
+      fi
     else
       echo "ERROR: You must provide a description for your TAR.GZ";
   fi

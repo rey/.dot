@@ -60,6 +60,19 @@ function zzip() {
       title=${1%/}_$(date +"%d%m%y_%H%M")_${description// /_};
       zip -r ${title}.zip $1;
     else
-      echo "PROVIDE A DESCRIPTION";
+      echo "ERROR: You must provide a description for your ZIP";
+  fi
+}
+
+# creates a tar archive of the form name_ddmmyy_hhmm_description.tar.gz
+# usage `ttar folder`
+function ttar() {
+  echo "Enter tar.gz description" && read description;
+  if [ "$description" != "" ];
+    then
+      title=${1%/}_$(date +"%d%m%y_%H%M")_${description// /_};
+      tar -zcvf ${title}.tar.gz $1;
+    else
+      echo "ERROR: You must provide a description for your TAR.GZ";
   fi
 }

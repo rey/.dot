@@ -58,7 +58,7 @@ function zzip() {
   echo "Enter zip description" && read description;
   if [ "$description" != "" ];
     then
-      title=${1%/}_$(date +"%d%m%y_%H%M")_${description// /_};
+      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_};
       zip -r ${title}.zip $1;
       if [ $? -eq 0 ];
         then
@@ -79,7 +79,7 @@ function ttar() {
   echo "Enter tar.gz description" && read description;
   if [ "$description" != "" ];
     then
-      title=${1%/}_$(date +"%d%m%y_%H%M")_${description// /_};
+      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_};
       tar -zcvf ${title}.tar.gz $1;
       if [ $? -eq 0 ];
         then

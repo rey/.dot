@@ -10,6 +10,7 @@ PATH=$PATH:$HOME/.rvm/bin     # Add RVM to PATH for scripting
 
 # alias
 
+alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ip='ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2'

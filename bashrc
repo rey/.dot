@@ -52,7 +52,6 @@ function marks {
 # https://gist.github.com/atomotic/721aefe8c72ac095cb6e
 # usage: `archive http://google.com`
 function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-Location | awk '{print "https://web.archive.org"$2}'; }
-
 # creates a zip file of the form name_ddmmyy_hhmm_descripton.zip
 # usage: `zzip folder`
 function zzip() {
@@ -92,5 +91,18 @@ function ttar() {
       fi
     else
       echo "ERROR: You must provide a description for your TAR.GZ";
+  fi
+}
+
+# fires up vim with an empty markdown file of the form title_ddmmyy_hhmm.markdown
+# usage: `markdown title`
+function markdown() {
+  if [ "$1" != "" ];
+    then
+      title=${@};
+      vim ${title//[^a-zA-Z0-9]/_}_$(date +"%d%m%y_%H%M").markdown;
+    else
+      echo
+      echo "ERROR: You must provide a title for your MARKDOWN";
   fi
 }

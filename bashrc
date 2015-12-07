@@ -1,3 +1,7 @@
+if [ "$COLORTERM" == "xfce4-terminal" ] ; then
+  export TERM=xterm-256color
+fi
+
 # ps1
 export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 

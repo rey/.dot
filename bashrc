@@ -1,4 +1,8 @@
-if [ "$COLORTERM" == "xfce4-terminal" ]; then
+if [ -z $TMUX ]; then
+  # $TMUX isn't set
+  export TERM=xterm-256color
+else
+  # $TMUX is set
   export TERM=screen-256color
 fi
 

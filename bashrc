@@ -14,10 +14,7 @@ VISUAL=/usr/bin/vim           # set vim to be the default editor
 
 set -o vi                     # use vim commands in bash
 
-PATH=$PATH:$HOME/.rvm/bin     # Add RVM to PATH for scripting
-
 # alias
-
 alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
 alias grep='grep --color=auto'
 alias j='jump'

@@ -15,13 +15,13 @@ VISUAL=/usr/bin/vim           # set vim to be the default editor
 set -o vi                     # use vim commands in bash
 
 # alias
-
 alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ip='ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\  -f2'
 alias ls='ls -lags'
 alias nano='vim'
+alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
 alias qq='git status -sb'
 alias reboot='shutdown -r now'
 alias sing='ruby ~/.dot/tools/spark-ping'

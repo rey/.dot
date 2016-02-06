@@ -14,8 +14,6 @@ VISUAL=/usr/bin/vim           # set vim to be the default editor
 
 set -o vi                     # use vim commands in bash
 
-PATH=$PATH:$HOME/.rvm/bin     # Add RVM to PATH for scripting
-
 # alias
 
 alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
@@ -114,3 +112,6 @@ function markdown() {
       echo "ERROR: You must provide a title for your MARKDOWN";
   fi
 }
+
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh

@@ -58,6 +58,7 @@ function marks {
 # https://gist.github.com/atomotic/721aefe8c72ac095cb6e
 # usage: `archive http://google.com`
 function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-Location | awk '{print "https://web.archive.org"$2}'; }
+
 # creates a zip file of the form name_ddmmyy_hhmm_descripton.zip
 # usage: `zzip folder`
 function zzip() {

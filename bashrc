@@ -23,15 +23,12 @@ alias ls='ls -lags'
 alias nano='vim'
 alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
 alias qq='git status -sb'
-alias reboot='shutdown -r now'
-alias sing='ruby ~/.dot/tools/spark-ping'
 alias sudo='sudo '
 alias tree="tree -C"
 alias v='vim'
 alias vi='vim'
 
 ## tmux alias
-
 alias tmn="tmux new -s"
 alias tma="tmux attach -t"
 alias tmd="tmux detach"

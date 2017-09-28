@@ -18,7 +18,7 @@ set -o vi                     # use vim commands in bash
 alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
 alias grep='grep --color=auto'
 alias j='jump'
-alias ls='ls -lags'
+alias ls='ls -lagsh'
 alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
 alias qq='git status -sb'
 alias sudo='sudo '
@@ -108,6 +108,3 @@ function markdown() {
       echo "ERROR: You must provide a title for your MARKDOWN";
   fi
 }
-
-# source /usr/local/share/chruby/chruby.sh
-# source /usr/local/share/chruby/auto.sh

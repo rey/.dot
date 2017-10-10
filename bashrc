@@ -111,6 +111,7 @@ function markdown() {
 }
 
 # Generates a heroku-style name
+# Adjectives and nouns taken from: https://gist.github.com/afriggeri/1266756
 # Useage: `name`
 function name() {
 

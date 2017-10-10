@@ -110,7 +110,6 @@ function markdown() {
   fi
 }
 
-
 # Generates a heroku-style name
 # Useage: `name`
 function name() {

@@ -16,6 +16,7 @@ set -o vi                     # use vim commands in bash
 
 # alias
 alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
+alias cmatrix='cmatrix -a'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ls='ls -lagsh'
@@ -33,7 +34,7 @@ alias tmd="tmux detach"
 alias tml="tmux ls"
 alias tms="tmux switch -t"
 
-# external
+# Functions etc
 
 # http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
 export MARKPATH=$HOME/.marks
@@ -51,11 +52,11 @@ function marks {
 }
 
 # https://gist.github.com/atomotic/721aefe8c72ac095cb6e
-# usage: `archive http://google.com`
+# Usage: `archive http://google.com`
 function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-Location | awk '{print "https://web.archive.org"$2}'; }
 
-# creates a zip file of the form name_ddmmyy_hhmm_descripton.zip
-# usage: `zzip folder`
+# Creates a zip file of the form name_ddmmyy_hhmm_descripton.zip
+# Usage: `zzip folder`
 function zzip() {
   echo "Enter zip description" && read description;
   if [ "$description" != "" ];
@@ -75,8 +76,8 @@ function zzip() {
   fi
 }
 
-# creates a tar archive of the form name_ddmmyy_hhmm_description.tar.gz
-# usage `ttar folder`
+# Creates a tar archive of the form name_ddmmyy_hhmm_description.tar.gz
+# Usage: `ttar folder`
 function ttar() {
   echo "Enter tar.gz description" && read description;
   if [ "$description" != "" ];
@@ -96,8 +97,8 @@ function ttar() {
   fi
 }
 
-# fires up vim with an empty markdown file of the form title_ddmmyy_hhmm.markdown
-# usage: `markdown title`
+# Fires up vim with an empty markdown file of the form title_ddmmyy_hhmm.markdown
+# Usage: `markdown title`
 function markdown() {
   if [ "$1" != "" ];
     then
@@ -107,4 +108,33 @@ function markdown() {
       echo
       echo "ERROR: You must provide a title for your MARKDOWN";
   fi
+}
+
+# Generates a heroku-style name
+# Useage: `name`
+function name() {
+
+  # Output variable values
+  local debug=1
+
+  local adjectives=(autumn hidden bitter misty silent empty dry dark summer icy delicate quiet white cool spring winter patient twilight dawn crimson wispy weathered blue billowing broken cold damp falling frosty green long late lingering bold little morning muddy old red rough still small sparkling shy wandering withered wild black young holy solitary fragrant aged snowy proud floral restless divine)
+
+  local nouns=(waterfall river breeze moon rain wind sea morning snow lake sunset pine shadow leaf dawn glitter forest hill cloud meadow sun glade bird brook butterfly bush dew dust field fire flower firefly feather grass haze mountain night pond darkness snowflake silence sound sky shape surf thunder violet water wildflower wave water resonance sun wood dream cherry tree fog frost voice paper)
+
+  local get_random=$$$(date +%s)$((1000 + $RANDOM % 9000))
+  local get_adjective=${adjectives[${get_random} % ${#adjectives[@]}]}
+  local get_noun=${nouns[${get_random} % ${#nouns[@]}]}
+  local get_number=`echo ${get_random} | tail -c 5`
+
+  if [ ${debug} = 1 ]; then
+    echo "  ⚡️  there are ${#adjectives[@]} adjectives"
+    echo "  ⚡️  there are ${#nouns[@]} nouns"
+    echo "  ⚡️  random is ${get_random}"
+    echo "  ⚡️  adjective is ${get_adjective}"
+    echo "  ⚡️  noun is ${get_noun}"
+    echo "  ⚡️  number is ${get_number}"
+  fi
+
+  echo -e "🥔  Your name is \033[96m${get_adjective}-${get_noun}-${get_number}\033[0m"
+
 }

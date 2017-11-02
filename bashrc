@@ -139,6 +139,6 @@ function name() {
     echo "  ⚡️  number is ${get_number}"
   fi
 
-  echo -e "🥔  Your name is \033[96m${get_adjective}-${get_noun}-${get_number}\033[0m"
+  echo -e "Your name is \033[96m${get_adjective}-${get_noun}-${get_number}\033[0m"
 
 }

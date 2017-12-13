@@ -146,14 +146,15 @@ function name() {
 # Generates a QR code given a string or URL
 # Usage: `qr`
 function qr() {
-  echo "Enter text or URL" && read description;
-  if [ "$description" != "" ];
+  echo "Enter text or URL" && read text_or_url;
+  if [ "${text_or_url}" != "" ];
     then
       local date=$(date +"%d%m%y_%H%M");
       # TODO: Check that qrencode is installed
       qrencode \
+        "${text_or_url}" \
         --output ~/qrcode_${date}.png \
-        --size 10 "${description}" \
+        --size 10 \
         --foreground=ff66cc \
         --background=ffffff
     else

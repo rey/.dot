@@ -112,7 +112,7 @@ function markdown() {
 
 # Generates a heroku-style name
 # Adjectives and nouns taken from: https://gist.github.com/afriggeri/1266756
-# Useage: `name`
+# Usage: `name`
 function name() {
 
   # Output variable values
@@ -141,4 +141,22 @@ function name() {
 
   echo -e "Your name is \033[96m${get_adjective}-${get_noun}-${get_number}\033[0m"
 
+}
+
+# Generates a QR code given a string or URL
+# Usage: `qr`
+function qr() {
+  echo "Enter text or URL" && read description;
+  if [ "$description" != "" ];
+    then
+      local date=$(date +"%d%m%y_%H%M");
+      # TODO: Check that qrencode is installed
+      qrencode \
+        --output ~/qrcode_${date}.png \
+        --size 10 "${description}" \
+        --foreground=ff66cc \
+        --background=ffffff
+    else
+      echo "ERROR: You didn't enter anything";
+  fi
 }

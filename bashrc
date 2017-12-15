@@ -161,3 +161,18 @@ function qr() {
       echo "ERROR: You didn't enter anything";
   fi
 }
+
+# Creates a copy of a file and appends the ddmmyyy_hhmmss
+# Usage: `version filename`
+function version() {
+  local filename_with_extension="${1}"
+  if [ -d "${filename_with_extension}" ]; then
+    echo "ERROR: version doesn't work on directories"
+  else
+    local filename_only=`echo ${filename_with_extension%.*}`
+    local extension_only=`echo ${filename_with_extension} | awk -F . '{print $NF}'`
+    local filename_with_version=`echo ${filename_only}_$(date +"%d%m%y_%H%M%S").${extension_only}`
+    cp ${filename_with_extension} ${filename_with_version}
+    file ${filename_with_version}
+  fi
+}

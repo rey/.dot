@@ -36,7 +36,7 @@ alias tms="tmux switch -t"
 
 # Functions etc
 
-# http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
+# https://web.archive.org/web/20180103112636/http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
 export MARKPATH=$HOME/.marks
 function jump {
   cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
@@ -59,54 +59,54 @@ function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-L
 # Usage: `zzip folder`
 function zzip() {
   echo "Enter zip description" && read description;
-  if [ "$description" != "" ];
+  if [ ! -z "${description}" ]
     then
-      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_};
-      zip -r ${title}.zip $1;
-      if [ $? -eq 0 ];
+      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
+      zip -r ${title}.zip $1
+      if [ $? -eq 0 ]
         then
           echo
-          echo "${title}.zip has been created!";
+          echo "${title}.zip has been created!"
         else
           echo
-          echo "ERROR: zzip has failed :(";
+          echo "ERROR: zzip has failed :("
       fi
     else
-      echo "ERROR: You must provide a description for your ZIP";
+      echo "ERROR: You must provide a description for your zip file"
   fi
 }
 
 # Creates a tar archive of the form name_ddmmyy_hhmm_description.tar.gz
 # Usage: `ttar folder`
 function ttar() {
-  echo "Enter tar.gz description" && read description;
-  if [ "$description" != "" ];
+  echo "Enter tar.gz description" && read description
+  if [ ! -z "${description}" ]
     then
-      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_};
-      tar -zcvf ${title}.tar.gz $1;
-      if [ $? -eq 0 ];
+      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
+      tar -zcvf ${title}.tar.gz $1
+      if [ $? -eq 0 ]
         then
           echo
-          echo "${title}.tar.gz has been created!";
+          echo "${title}.tar.gz has been created!"
         else
           echo
-          echo "ERROR: ttar has failed :(";
+          echo "ERROR: ttar has failed :("
       fi
     else
-      echo "ERROR: You must provide a description for your TAR.GZ";
+      echo "ERROR: You must provide a description for your tar.gz file"
   fi
 }
 
 # Fires up vim with an empty markdown file of the form title_ddmmyy_hhmm.markdown
 # Usage: `markdown title`
 function markdown() {
-  if [ "$1" != "" ];
+  if [ ! -z "${1}" ]
     then
       title=${@};
-      vim ${title//[^a-zA-Z0-9]/_}_$(date +"%d%m%y_%H%M").markdown;
+      vim ${title//[^a-zA-Z0-9]/_}_$(date +"%d%m%y_%H%M").markdown
     else
       echo
-      echo "ERROR: You must provide a title for your MARKDOWN";
+      echo "ERROR: You must provide a title for your Markdown file"
   fi
 }
 
@@ -146,11 +146,15 @@ function name() {
 # Generates a QR code given a string or URL
 # Usage: `qr`
 function qr() {
-  echo "Enter text or URL" && read text_or_url;
-  if [ "${text_or_url}" != "" ];
+  # Check that qrencode is installed
+  if ! [ -x "$(command -v qrencode)" ]; then
+    echo "ERROR: qrencode is not installed: `brew install qrencode` then try again :)"
+  fi
+   
+  echo "Enter text or URL" && read text_or_url
+  if [ ! -z "${text_or_url}" ]
     then
       local date=$(date +"%d%m%y_%H%M");
-      # TODO: Check that qrencode is installed
       qrencode \
         "${text_or_url}" \
         --output ~/qrcode_${date}.png \
@@ -168,6 +172,7 @@ function version() {
   local filename_with_extension="${1}"
   if [ -d "${filename_with_extension}" ]; then
     echo "ERROR: version doesn't work on directories"
+    exit 1
   else
     local filename_only=`echo ${filename_with_extension%.*}`
     local extension_only=`echo ${filename_with_extension} | awk -F . '{print $NF}'`

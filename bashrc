@@ -59,20 +59,18 @@ function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-L
 # Usage: `zzip folder`
 function zzip() {
   echo "Enter zip description" && read description;
-  if [ ! -z "${description}" ]
-    then
-      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
-      zip -r ${title}.zip $1
-      if [ $? -eq 0 ]
-        then
-          echo
-          echo "${title}.zip has been created!"
-        else
-          echo
-          echo "ERROR: zzip has failed :("
-      fi
+  if [ ! -z "${description}" ]; then
+    title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
+    zip -r ${title}.zip $1
+    if [ $? -eq 0 ]; then
+      echo
+      echo "${title}.zip has been created!"
     else
-      echo "ERROR: You must provide a description for your zip file"
+      echo
+      echo "ERROR: zzip has failed :("
+    fi
+  else
+    echo "ERROR: You must provide a description for your zip file"
   fi
 }
 
@@ -80,33 +78,30 @@ function zzip() {
 # Usage: `ttar folder`
 function ttar() {
   echo "Enter tar.gz description" && read description
-  if [ ! -z "${description}" ]
-    then
-      title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
-      tar -zcvf ${title}.tar.gz $1
-      if [ $? -eq 0 ]
-        then
-          echo
-          echo "${title}.tar.gz has been created!"
-        else
-          echo
-          echo "ERROR: ttar has failed :("
-      fi
+  if [ ! -z "${description}" ]; then
+    title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
+    tar -zcvf ${title}.tar.gz $1
+    if [ $? -eq 0 ]; then
+      echo
+      echo "${title}.tar.gz has been created!"
     else
-      echo "ERROR: You must provide a description for your tar.gz file"
+      echo
+      echo "ERROR: ttar has failed :("
+    fi
+  else
+    echo "ERROR: You must provide a description for your tar.gz file"
   fi
 }
 
 # Fires up vim with an empty markdown file of the form title_ddmmyy_hhmm.markdown
 # Usage: `markdown title`
 function markdown() {
-  if [ ! -z "${1}" ]
-    then
-      title=${@};
-      vim ${title//[^a-zA-Z0-9]/_}_$(date +"%d%m%y_%H%M").markdown
-    else
-      echo
-      echo "ERROR: You must provide a title for your Markdown file"
+  if [ ! -z "${1}" ]; then
+    title=${@};
+    vim ${title//[^a-zA-Z0-9]/_}_$(date +"%d%m%y_%H%M").markdown
+  else
+    echo
+    echo "ERROR: You must provide a title for your Markdown file"
   fi
 }
 
@@ -152,17 +147,16 @@ function qr() {
   fi
    
   echo "Enter text or URL" && read text_or_url
-  if [ ! -z "${text_or_url}" ]
-    then
-      local date=$(date +"%d%m%y_%H%M");
-      qrencode \
-        "${text_or_url}" \
-        --output ~/qrcode_${date}.png \
-        --size 10 \
-        --foreground=ff66cc \
-        --background=ffffff
-    else
-      echo "ERROR: You didn't enter anything";
+  if [ ! -z "${text_or_url}" ]; then
+    local date=$(date +"%d%m%y_%H%M");
+    qrencode \
+      "${text_or_url}" \
+      --output ~/qrcode_${date}.png \
+      --size 10 \
+      --foreground=ff66cc \
+      --background=ffffff
+  else
+    echo "ERROR: You didn't enter anything";
   fi
 }
 

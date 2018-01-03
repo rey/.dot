@@ -51,7 +51,7 @@ function marks {
   \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
 }
 
-# https://gist.github.com/atomotic/721aefe8c72ac095cb6e
+# https://web.archive.org/web/20180103114134/https://gist.github.com/atomotic/721aefe8c72ac095cb6e
 # Usage: `archive http://google.com`
 function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-Location | awk '{print "https://web.archive.org"$2}'; }
 
@@ -111,7 +111,7 @@ function markdown() {
 }
 
 # Generates a heroku-style name
-# Adjectives and nouns taken from: https://gist.github.com/afriggeri/1266756
+# Adjectives and nouns taken from: https://web.archive.org/web/20180103114041/https://gist.github.com/afriggeri/1266756
 # Usage: `name`
 function name() {
 

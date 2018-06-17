@@ -20,7 +20,7 @@ alias cmatrix='cmatrix -a'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ls='ls -lagsh'
-alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
+# alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
 alias qq='git status -sb'
 alias sudo='sudo '
 alias tree="tree -C"
@@ -176,3 +176,32 @@ function version() {
     file ${filename_with_version}
   fi
 }
+
+function rip() {
+  local youtube_url="${1}"
+  echo "youtube url is ${youtube_url}"
+  youtube-dl \
+    --output="~/beats/rips/%(title)s.%(ext)s" \
+    --extract-audio \
+    --audio-format wav \
+    ${1}
+    if [ $? -eq 0 ]; then
+      osascript -e \
+        'display notification "Rip done" with title "youtube-dl"'
+    fi
+}
+
+function yp3() {
+  local youtube_url="${1}"
+  echo "youtube url is ${youtube_url}"
+  youtube-dl \
+    --verbose \
+    --output="~/yp3/%(title)s.%(ext)s" \
+    --extract-audio \
+    --audio-format mp3 \
+    ${1}
+}
+
+
+
+export PATH="$HOME/.npm-packages/bin:$PATH"

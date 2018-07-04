@@ -179,4 +179,17 @@ function mp3() {
     ${1}
 }
 
+foresight() {
+  # Takes a string and spits out a sha256
+  local foresight=`echo ${@} | sed 's/[[:punct:]]//g'`
+  local sha=`echo -n "${foresight}" | openssl sha256`
+  echo
+  echo "🔮 Your sha is:"
+  echo -e "\033[36m${sha}\033[0m"
+  echo
+  echo "🔮 Prove it!"
+  echo -e "\033[36mecho -n ${foresight} | openssl sha256\033[0m"
+  echo
+}
+
 export PATH="$HOME/.npm-packages/bin:$PATH"

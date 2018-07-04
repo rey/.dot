@@ -20,7 +20,7 @@ alias cmatrix='cmatrix -a'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ls='ls -lagsh'
-# alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
+alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
 alias qq='git status -sb'
 alias sudo='sudo '
 alias tree="tree -C"
@@ -74,25 +74,6 @@ function zzip() {
   fi
 }
 
-# Creates a tar archive of the form name_ddmmyy_hhmm_description.tar.gz
-# Usage: `ttar folder`
-function ttar() {
-  echo "Enter tar.gz description" && read description
-  if [ ! -z "${description}" ]; then
-    title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
-    tar -zcvf ${title}.tar.gz $1
-    if [ $? -eq 0 ]; then
-      echo
-      echo "${title}.tar.gz has been created!"
-    else
-      echo
-      echo "ERROR: ttar has failed :("
-    fi
-  else
-    echo "ERROR: You must provide a description for your tar.gz file"
-  fi
-}
-
 # Fires up vim with an empty markdown file of the form title_ddmmyy_hhmm.markdown
 # Usage: `markdown title`
 function markdown() {
@@ -116,8 +97,8 @@ function name() {
   local adjectives=(autumn hidden bitter misty silent empty dry dark summer icy delicate quiet white cool spring winter patient twilight dawn crimson wispy weathered blue billowing broken cold damp falling frosty green long late lingering bold little morning muddy old red rough still small sparkling shy wandering withered wild black young holy solitary fragrant aged snowy proud floral restless divine)
   # Array of nouns
   local nouns=(waterfall river breeze moon rain wind sea morning snow lake sunset pine shadow leaf dawn glitter forest hill cloud meadow sun glade bird brook butterfly bush dew dust field fire flower firefly feather grass haze mountain night pond darkness snowflake silence sound sky shape surf thunder violet water wildflower wave water resonance sun wood dream cherry tree fog frost voice paper)
-  # Munge date and random number for reasons
-  local get_random=$$$(date +%s)$((1000 + $RANDOM % 9000))
+
+  local get_random=$((1000 + $RANDOM % 9999))
   # Get a random adjective
   local get_adjective=${adjectives[${get_random} % ${#adjectives[@]}]}
   # Get a random noun
@@ -143,10 +124,11 @@ function name() {
 function qr() {
   # Check that qrencode is installed
   if ! [ -x "$(command -v qrencode)" ]; then
-    echo "ERROR: qrencode is not installed: `brew install qrencode` then try again :)"
+    echo "ERROR: qrencode is not installed: brew install qrencode then try again :)"
   fi
-   
-  echo "Enter text or URL" && read text_or_url
+
+  local text_or_url="${1}"
+  # echo "Enter text or URL" && read text_or_url
   if [ ! -z "${text_or_url}" ]; then
     local date=$(date +"%d%m%y_%H%M");
     qrencode \
@@ -163,44 +145,39 @@ function qr() {
 # Creates a copy of a file and appends the ddmmyyy_hhmmss
 # Usage: `version filename`
 function version() {
-  local filename_with_extension="${1}"
+  local debug=0
+  local filename_with_extension=`echo ${1}`
   if [ -d "${filename_with_extension}" ]; then
+    # TODO: There's no reason this couldnt work on directories other than I use
+    # the `zzip` function for those
     echo "ERROR: version doesn't work on directories"
     exit 1
   else
+    # local filename_with_extension=`echo ${1// /_}`
     local filename_only=`echo ${filename_with_extension%.*}`
     local extension_only=`echo ${filename_with_extension} | awk -F . '{print $NF}'`
-    local filename_with_version=`echo ${filename_only}_$(date +"%d%m%y_%H%M%S").${extension_only}`
-    cp ${filename_with_extension} ${filename_with_version}
+    local filename_with_version=`echo ${filename_only// /_}_$(date +"%d%m%y_%H%M%S").${extension_only}`
+    if [ ${debug} = 1 ]; then
+      echo "  ⚡️  filename_with_extension is ${filename_with_extension}"
+      echo "  ⚡️  filename_only is ${filename_only}"
+      echo "  ⚡️  extension_only is ${extension_only}"
+      echo "  ⚡️  filename_with_version is ${filename_with_version}"
+    fi
+
+    cp -v "${filename_with_extension}" "${filename_with_version}"
     file ${filename_with_version}
   fi
 }
 
-function rip() {
-  local youtube_url="${1}"
-  echo "youtube url is ${youtube_url}"
-  youtube-dl \
-    --output="~/beats/rips/%(title)s.%(ext)s" \
-    --extract-audio \
-    --audio-format wav \
-    ${1}
-    if [ $? -eq 0 ]; then
-      osascript -e \
-        'display notification "Rip done" with title "youtube-dl"'
-    fi
-}
-
-function yp3() {
+function mp3() {
   local youtube_url="${1}"
   echo "youtube url is ${youtube_url}"
   youtube-dl \
     --verbose \
-    --output="~/yp3/%(title)s.%(ext)s" \
+    --output="~/Downloads/%(title)s.%(ext)s" \
     --extract-audio \
     --audio-format mp3 \
     ${1}
 }
-
-
 
 export PATH="$HOME/.npm-packages/bin:$PATH"

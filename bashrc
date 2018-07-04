@@ -153,7 +153,6 @@ function version() {
     echo "ERROR: version doesn't work on directories"
     exit 1
   else
-    # local filename_with_extension=`echo ${1// /_}`
     local filename_only=`echo ${filename_with_extension%.*}`
     local extension_only=`echo ${filename_with_extension} | awk -F . '{print $NF}'`
     local filename_with_version=`echo ${filename_only// /_}_$(date +"%d%m%y_%H%M%S").${extension_only}`

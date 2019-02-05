@@ -168,20 +168,9 @@ function version() {
   fi
 }
 
-function mp3() {
-  local youtube_url="${1}"
-  echo "youtube url is ${youtube_url}"
-  youtube-dl \
-    --verbose \
-    --output="~/Downloads/%(title)s.%(ext)s" \
-    --extract-audio \
-    --audio-format mp3 \
-    ${1}
-}
-
 foresight() {
   # Takes a string and spits out a sha256
-  local foresight=`echo ${@}`
+  local foresight=`echo $(date +"%d/%m/%y @ %H:%M"): ${@}`
   if [ ! -z "${@}" ]; then
     local sha=`echo -n "${foresight}" | openssl sha256`
     echo

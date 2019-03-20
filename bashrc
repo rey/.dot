@@ -51,10 +51,6 @@ function marks {
   \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
 }
 
-# https://web.archive.org/web/20180103114134/https://gist.github.com/atomotic/721aefe8c72ac095cb6e
-# Usage: `archive http://google.com`
-function archive() { curl -s -I https://web.archive.org/save/$* | grep Content-Location | awk '{print "https://web.archive.org"$2}'; }
-
 # Creates a zip file of the form name_ddmmyy_hhmm_descripton.zip
 # Usage: `zzip folder`
 function zzip() {
@@ -187,5 +183,41 @@ foresight() {
   fi
 
 }
+
+# archive.sh
+# Replaces my own archive.org function which only now works sometimes.
+# This will save individual web pages
+archive() {
+  if [ ! -z "${@}" ]; then
+
+    local friendly_name=`echo ${@} | sed \
+      -e 's/^http:\/\///g' \
+      -e 's/^https:\/\///g' \
+      -e 's#/$##' -e 's/\//_/g'`
+    local directory=$(date +"%d%m%y_%H%M%S")
+
+    mkdir -p /tmp/${directory}
+
+    wget \
+      --adjust-extension \
+      --span-hosts \
+      --convert-links \
+      --no-directories \
+      --timestamping \
+      --page-requisites \
+      --directory-prefix=/tmp/${directory} \
+      ${@}
+
+      mv /tmp/${directory} ~/Desktop/${friendly_name}_${directory}
+      cd ~/Desktop && zip -mr ~/Desktop/${friendly_name}_${directory}.zip ${friendly_name}_${directory}
+
+  else
+    echo "ERROR: Please enter a URL"
+  fi
+}
+
+
+
+
 
 export PATH="$HOME/.npm-packages/bin:$PATH"

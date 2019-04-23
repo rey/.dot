@@ -166,8 +166,8 @@ function version() {
 
 foresight() {
   # Takes a string and spits out a sha256
-  local foresight=`echo $(date +"%d/%m/%y @ %H:%M"): ${@}`
   if [ ! -z "${@}" ]; then
+    local foresight=`echo $(date +"%d/%m/%y @ %H:%M"): ${@}`
     local sha=`echo -n "${foresight}" | openssl sha256`
     echo
     echo "🔮 Your sha is:"
@@ -184,19 +184,14 @@ foresight() {
 
 }
 
-# archive.sh
-# Replaces my own archive.org function which only now works sometimes.
-# This will save individual web pages
 archive() {
+  # Replaces my own archive.org function which only now works sometimes.
   if [ ! -z "${@}" ]; then
-
-    local friendly_name=`echo ${@} | sed \
-      -e 's/^http:\/\///g' \
-      -e 's/^https:\/\///g' \
-      -e 's#/$##' -e 's/\//_/g'`
+    # create a working directory named with a timestamp
     local directory=$(date +"%d%m%y_%H%M%S")
-
-    mkdir -p /tmp/${directory}
+    # takes the user-input URL and removes http/https, removes any trailing
+    # slash and replaces other slashes with underscores
+    local friendly_name=`echo ${@#*//} | sed -e 's#/$##' -e 's/\//_/g'`
 
     wget \
       --adjust-extension \
@@ -208,11 +203,13 @@ archive() {
       --directory-prefix=/tmp/${directory} \
       ${@}
 
-      mv /tmp/${directory} ~/Desktop/${friendly_name}_${directory}
-      cd ~/Desktop && zip -mr ~/Desktop/${friendly_name}_${directory}.zip ${friendly_name}_${directory}
+      mv -v /tmp/${directory} /tmp/${friendly_name}_${directory}
+
+      # it's okay to use `junk-paths` as we're using `no-directories` with wget
+      zip -rmj ~/Desktop/${friendly_name}_${directory}.zip /tmp/${friendly_name}_${directory}
 
   else
-    echo "ERROR: Please enter a URL"
+    echo "ERROR: Please enter a URL that you would like to create an archive for"
   fi
 }
 

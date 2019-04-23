@@ -1,0 +1,3 @@
+SHELL=/bin/bash
+HOME=/Users/rey
+5 */2 * * * mv ${HOME}/Desktop/Screenshot* ${HOME}/Desktop/_trash

@@ -184,34 +184,34 @@ foresight() {
 
 }
 
-archive() {
-  # Replaces my own archive.org function which only now works sometimes.
-  if [ ! -z "${@}" ]; then
-    # create a working directory named with a timestamp
-    local directory=$(date +"%d%m%y_%H%M%S")
-    # takes the user-input URL and removes http/https, removes any trailing
-    # slash and replaces other slashes with underscores
-    local friendly_name=`echo ${@#*//} | sed -e 's#/$##' -e 's/\//_/g'`
+# archive() {
+#   # Replaces my own archive.org function which only now works sometimes.
+#   if [ ! -z "${@}" ]; then
+#     # create a working directory named with a timestamp
+#     local directory=$(date +"%d%m%y_%H%M%S")
+#     # takes the user-input URL and removes http/https, removes any trailing
+#     # slash and replaces other slashes with underscores
+#     local friendly_name=`echo ${@#*//} | sed -e 's#/$##' -e 's/\//_/g'`
 
-    wget \
-      --adjust-extension \
-      --span-hosts \
-      --convert-links \
-      --no-directories \
-      --timestamping \
-      --page-requisites \
-      --directory-prefix=/tmp/${directory} \
-      ${@}
+#     wget \
+#       --adjust-extension \
+#       --span-hosts \
+#       --convert-links \
+#       --no-directories \
+#       --timestamping \
+#       --page-requisites \
+#       --directory-prefix=/tmp/${directory} \
+#       ${@}
 
-      mv -v /tmp/${directory} /tmp/${friendly_name}_${directory}
+#       mv -v /tmp/${directory} /tmp/${friendly_name}_${directory}
 
-      # it's okay to use `junk-paths` as we're using `no-directories` with wget
-      zip -rmj ~/Desktop/${friendly_name}_${directory}.zip /tmp/${friendly_name}_${directory}
+#       # it's okay to use `junk-paths` as we're using `no-directories` with wget
+#       zip -rmj ~/Desktop/${friendly_name}_${directory}.zip /tmp/${friendly_name}_${directory}
 
-  else
-    echo "ERROR: Please enter a URL that you would like to create an archive for"
-  fi
-}
+#   else
+#     echo "ERROR: Please enter a URL that you would like to create an archive for"
+#   fi
+# }
 
 
 

@@ -6,6 +6,10 @@ else
   export TERM=screen-256color
 fi
 
+# include helpes
+source ~/.dot/helpers/colours
+source ~/.dot/helpers/silly
+
 # ps1
 export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 
@@ -184,37 +188,24 @@ foresight() {
 
 }
 
-# archive() {
-#   # Replaces my own archive.org function which only now works sometimes.
-#   if [ ! -z "${@}" ]; then
-#     # create a working directory named with a timestamp
-#     local directory=$(date +"%d%m%y_%H%M%S")
-#     # takes the user-input URL and removes http/https, removes any trailing
-#     # slash and replaces other slashes with underscores
-#     local friendly_name=`echo ${@#*//} | sed -e 's#/$##' -e 's/\//_/g'`
-
-#     wget \
-#       --adjust-extension \
-#       --span-hosts \
-#       --convert-links \
-#       --no-directories \
-#       --timestamping \
-#       --page-requisites \
-#       --directory-prefix=/tmp/${directory} \
-#       ${@}
-
-#       mv -v /tmp/${directory} /tmp/${friendly_name}_${directory}
-
-#       # it's okay to use `junk-paths` as we're using `no-directories` with wget
-#       zip -rmj ~/Desktop/${friendly_name}_${directory}.zip /tmp/${friendly_name}_${directory}
-
-#   else
-#     echo "ERROR: Please enter a URL that you would like to create an archive for"
-#   fi
-# }
-
-
-
-
+hash() {
+  # About: Stupid function to generate a "random" hash
+  # Usage: `hash` or specify a hash length `hash 6`
+  local random_hash=`echo ${RANDOM} | openssl sha256`
+  local hash_length=32
+  # if length specified
+  if [[ ! -z "${1}" ]]; then
+    local hash_length=${1}
+  fi
+  local fresh_hash=`echo ${random_hash} | tail -c $((hash_length + 1))`
+  echo -e $banner_cyan_purple
+  # Welcome to Hash Burger Corp
+  echo "Hash Burger Corpへようこそ。"
+  # This is your number x
+  echo -e "これはあなたの番号です${cyan}${hash_length}${restore}"
+  echo
+  echo -e "${cyan}${fresh_hash}${restore}"
+  echo -e $banner_cyan_purple
+}
 
 export PATH="$HOME/.npm-packages/bin:$PATH"

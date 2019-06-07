@@ -1,3 +1,0 @@
-banner="\n★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★\n"
-banner_cyan_purple="\n${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★${restore}\n"
-banner_red_yellow="\n${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★${restore}\n"

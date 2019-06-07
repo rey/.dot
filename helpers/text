@@ -1,0 +1,22 @@
+# resets all attributes
+reset='\033[0m'
+
+# basic colours
+red='\033[00;91m'
+green='\033[00;92m'
+yellow='\033[00;93m'
+blue='\033[00;94m'
+purple='\033[00;95m'
+cyan='\033[00;96m'
+lightgray='\033[00;37m'
+
+# text formatting
+bold='\033[1m'
+underline='\033[4m'
+highlight='\033[7m'
+blink='\033[5m'
+
+# banners
+banner="\n★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★\n"
+banner_cyan_purple="\n${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★ ${cyan}★ ${purple}★${reset}\n"
+banner_red_yellow="\n${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${yellow}★${reset}\n"

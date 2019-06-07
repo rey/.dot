@@ -1,0 +1,8 @@
+restore='\033[0m'
+red='\033[00;31m'
+green='\033[00;32m'
+yellow='\033[00;33m'
+blue='\033[00;34m'
+purple='\033[00;35m'
+cyan='\033[00;36m'
+lightgray='\033[00;37m'

@@ -6,9 +6,8 @@ else
   export TERM=screen-256color
 fi
 
-# include helpes
-source ~/.dot/helpers/colours
-source ~/.dot/helpers/silly
+# include helpers
+source ~/.dot/helpers/text
 
 # ps1
 export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
@@ -202,9 +201,9 @@ hash() {
   # Welcome to Hash Burger Corp
   echo "Hash Burger Corpへようこそ。"
   # This is your number x
-  echo -e "これはあなたの番号です${cyan}${hash_length}${restore}"
+  echo -e "これはあなたの番号です${cyan}${hash_length}${reset}"
   echo
-  echo -e "${cyan}${fresh_hash}${restore}"
+  echo -e "${cyan}${fresh_hash}${reset}"
   echo -e $banner_cyan_purple
 }
 

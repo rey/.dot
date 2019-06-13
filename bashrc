@@ -114,7 +114,9 @@ function name() {
     echo "  ⚡️  number is ${get_number}"
   fi
 
-  echo -e "Your name is \033[96m${get_adjective}-${get_noun}-${get_number}\033[0m"
+  echo -e ${banner}
+  echo -e "Your name is ${cyan}${get_adjective}-${get_noun}-${get_number}${reset}"
+  echo -e ${banner}
 
 }
 
@@ -132,7 +134,7 @@ function qr() {
     local date=$(date +"%d%m%y_%H%M");
     qrencode \
       "${text_or_url}" \
-      --output ~/qrcode_${date}.png \
+      --output ~/Desktop/qr_${date}.png \
       --size 10 \
       --foreground=ff66cc \
       --background=ffffff

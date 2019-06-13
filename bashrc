@@ -1,3 +1,4 @@
+# $TMUX variable
 if [ -z $TMUX ]; then
   # $TMUX isn't set
   export TERM=xterm-256color
@@ -18,8 +19,6 @@ VISUAL=/usr/bin/vim           # set vim to be the default editor
 set -o vi                     # use vim commands in bash
 
 # alias
-alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
-alias cmatrix='cmatrix -a'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ls='ls -lagsh'
@@ -37,62 +36,48 @@ alias tmd="tmux detach"
 alias tml="tmux ls"
 alias tms="tmux switch -t"
 
-# Functions etc
+# Functions
+foresight() {
+  # About: Stupid function that takes a string and spits out a sha256
+  # Usage: `foresight "It's going to snow Christmas 2020"
 
-# https://web.archive.org/web/20180103112636/http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
-export MARKPATH=$HOME/.marks
-function jump {
-  cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
-function mark {
-  mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
-}
-function unmark {
-  rm -i "$MARKPATH/$1"
-}
-function marks {
-  \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
-}
-
-# Creates a zip file of the form name_ddmmyy_hhmm_descripton.zip
-# Usage: `zzip folder`
-function zzip() {
-  echo "Enter zip description" && read description;
-  if [ ! -z "${description}" ]; then
-    title=${1%/}_$(date +"%d%m%y_%H%M")_${description//[^a-zA-Z0-9]/_}
-    zip -r ${title}.zip $1
-    if [ $? -eq 0 ]; then
-      echo
-      echo "${title}.zip has been created!"
-    else
-      echo
-      echo "ERROR: zzip has failed :("
-    fi
-  else
-    echo "ERROR: You must provide a description for your zip file"
-  fi
-}
-
-# Fires up vim with an empty markdown file of the form title_ddmmyy_hhmm.markdown
-# Usage: `markdown title`
-function markdown() {
-  if [ ! -z "${1}" ]; then
-    title=${@};
-    vim ${title//[^a-zA-Z0-9]/_}_$(date +"%d%m%y_%H%M").markdown
-  else
+  if [ ! -z "${@}" ]; then
+    local foresight=`echo ${TIMESTAMP}: ${@}`
+    local sha=`echo -n "${foresight}" | openssl sha256`
     echo
-    echo "ERROR: You must provide a title for your Markdown file"
+    echo "Your sha is:"
+    echo
+    echo "  ${sha}"
+    echo
+    echo "Here is your receipt"
+    echo
+    echo "  echo -n \"${foresight}\" | openssl sha256"
+    echo
+  else
+    echo "Usage: foresight \"It's going to snow Christmas 2020\""
   fi
 }
 
-# Generates a heroku-style name
-# Adjectives and nouns taken from: https://web.archive.org/web/20180103114041/https://gist.github.com/afriggeri/1266756
-# Usage: `name`
-function name() {
+hash() {
+  # About: Stupid function to generate a "random" hash
+  # Usage: `hash` or specify a hash length `hash 6`
 
-  # Output variable values
+  local random_hash=`echo ${RANDOM} | openssl sha256`
+  local hash_length=32
+  # if length specified
+  if [[ ! -z "${1}" ]]; then
+    local hash_length=${1}
+  fi
+  local fresh_hash=`echo ${random_hash} | tail -c $((hash_length + 1))`
+  echo "${fresh_hash}"
+}
+
+name() {
+  # About: Generates a heroku-style name
+  # Usage: `name`
+
   local debug=0
-  # Array of adjectives
+  # Array of adjectives. Adjectives and nouns taken from: https://web.archive.org/web/20180103114041/https://gist.github.com/afriggeri/1266756
   local adjectives=(autumn hidden bitter misty silent empty dry dark summer icy delicate quiet white cool spring winter patient twilight dawn crimson wispy weathered blue billowing broken cold damp falling frosty green long late lingering bold little morning muddy old red rough still small sparkling shy wandering withered wild black young holy solitary fragrant aged snowy proud floral restless divine)
   # Array of nouns
   local nouns=(waterfall river breeze moon rain wind sea morning snow lake sunset pine shadow leaf dawn glitter forest hill cloud meadow sun glade bird brook butterfly bush dew dust field fire flower firefly feather grass haze mountain night pond darkness snowflake silence sound sky shape surf thunder violet water wildflower wave water resonance sun wood dream cherry tree fog frost voice paper)
@@ -114,99 +99,31 @@ function name() {
     echo "  ⚡️  number is ${get_number}"
   fi
 
-  echo -e ${banner}
-  echo -e "Your name is ${cyan}${get_adjective}-${get_noun}-${get_number}${reset}"
-  echo -e ${banner}
-
+  echo "${get_adjective}-${get_noun}-${get_number}"
 }
 
-# Generates a QR code given a string or URL
-# Usage: `qr`
-function qr() {
+qr() {
+  # About: Generates a QR code given a string or URL
+  # Usage: `qr "https://example.com`
+
   # Check that qrencode is installed
-  if ! [ -x "$(command -v qrencode)" ]; then
-    echo "ERROR: qrencode is not installed: brew install qrencode then try again :)"
+  if ! [[ -x "$(command -v qrencode)" ]]; then
+    echo "ERROR: qrencode is not installed: brew install qrencode then try again"
   fi
 
   local text_or_url="${1}"
-  # echo "Enter text or URL" && read text_or_url
   if [ ! -z "${text_or_url}" ]; then
-    local date=$(date +"%d%m%y_%H%M");
+    local date=$(date +"%d%m%y_%H%M")_`hash 6`;
     qrencode \
       "${text_or_url}" \
+      --margin=1 \
       --output ~/Desktop/qr_${date}.png \
       --size 10 \
       --foreground=ff66cc \
       --background=ffffff
   else
-    echo "ERROR: You didn't enter anything";
+    echo "Usage: qr \"https://example.com\"";
   fi
-}
-
-# Creates a copy of a file and appends the ddmmyyy_hhmmss
-# Usage: `version filename`
-function version() {
-  local debug=0
-  local filename_with_extension=`echo ${1}`
-  if [ -d "${filename_with_extension}" ]; then
-    # TODO: There's no reason this couldnt work on directories other than I use
-    # the `zzip` function for those
-    echo "ERROR: version doesn't work on directories"
-    exit 1
-  else
-    local filename_only=`echo ${filename_with_extension%.*}`
-    local extension_only=`echo ${filename_with_extension} | awk -F . '{print $NF}'`
-    local filename_with_version=`echo ${filename_only// /_}_$(date +"%d%m%y_%H%M%S").${extension_only}`
-    if [ ${debug} = 1 ]; then
-      echo "  ⚡️  filename_with_extension is ${filename_with_extension}"
-      echo "  ⚡️  filename_only is ${filename_only}"
-      echo "  ⚡️  extension_only is ${extension_only}"
-      echo "  ⚡️  filename_with_version is ${filename_with_version}"
-    fi
-
-    cp -v "${filename_with_extension}" "${filename_with_version}"
-    file ${filename_with_version}
-  fi
-}
-
-foresight() {
-  # Takes a string and spits out a sha256
-  if [ ! -z "${@}" ]; then
-    local foresight=`echo $(date +"%d/%m/%y @ %H:%M"): ${@}`
-    local sha=`echo -n "${foresight}" | openssl sha256`
-    echo
-    echo "🔮 Your sha is:"
-    echo -e "\t\033[36m${sha}\033[0m"
-    echo
-    echo "🔮 Prove it!"
-    echo -e "\t\033[36mecho -n \"${foresight}\" | openssl sha256\033[0m"
-    echo
-  else
-    echo "ERROR:  Please provide something you'd like to prove! For example:"
-    echo "        foresight \"It's going to snow Christmas 2020\""
-    echo "        Don't forget the double quotes"
-  fi
-
-}
-
-hash() {
-  # About: Stupid function to generate a "random" hash
-  # Usage: `hash` or specify a hash length `hash 6`
-  local random_hash=`echo ${RANDOM} | openssl sha256`
-  local hash_length=32
-  # if length specified
-  if [[ ! -z "${1}" ]]; then
-    local hash_length=${1}
-  fi
-  local fresh_hash=`echo ${random_hash} | tail -c $((hash_length + 1))`
-  echo -e $banner_cyan_purple
-  # Welcome to Hash Burger Corp
-  echo "Hash Burger Corpへようこそ。"
-  # This is your number x
-  echo -e "これはあなたの番号です${cyan}${hash_length}${reset}"
-  echo
-  echo -e "${cyan}${fresh_hash}${reset}"
-  echo -e $banner_cyan_purple
 }
 
 export PATH="$HOME/.npm-packages/bin:$PATH"

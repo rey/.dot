@@ -103,7 +103,7 @@ name() {
 }
 
 qr() {
-  # About: Generates a QR code given a string or URL
+  # About: Generates a QR code given a string or URL and puts it in the ~/Desktop folder"
   # Usage: `qr "https://example.com`
 
   # Check that qrencode is installed
@@ -113,11 +113,11 @@ qr() {
 
   local text_or_url="${1}"
   if [ ! -z "${text_or_url}" ]; then
-    local date=$(date +"%d%m%y_%H%M")_`hash 6`;
+    local date=$(date +"%d%m%y_%H%M");
     qrencode \
       "${text_or_url}" \
       --margin=1 \
-      --output ~/Desktop/qr_${date}.png \
+      --output ~/Desktop/qr_${date}_`hash 6`.png \
       --size 10 \
       --foreground=ff66cc \
       --background=ffffff

@@ -45,11 +45,11 @@ foresight() {
   # If a string is provided
   if [[ ! -z "${@}" ]]; then
     local foresight=`echo ${TIMESTAMP}: ${@}`
-    local sha=`echo -n "${foresight}" | openssl md5`
+    local md5=`echo -n "${foresight}" | openssl md5`
     echo
-    echo "Your sha is:"
+    echo "Your hash is:"
     echo
-    echo "  ${sha}"
+    echo "  ${md5}"
     echo
     echo "Here is your receipt"
     echo
@@ -64,7 +64,7 @@ hash() {
   # About: Stupid function to generate a "random" hash
   # Usage: `hash` or specify a hash length `hash 6`
 
-  local random_hash=`echo ${RANDOM} | openssl sha256`
+  local random_hash=`echo ${RANDOM} | openssl md5`
   local hash_length=32
 
   # if length specified

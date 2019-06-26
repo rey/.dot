@@ -45,7 +45,7 @@ foresight() {
   # If a string is provided
   if [[ ! -z "${@}" ]]; then
     local foresight=`echo ${TIMESTAMP}: ${@}`
-    local sha=`echo -n "${foresight}" | openssl sha256`
+    local sha=`echo -n "${foresight}" | openssl md5`
     echo
     echo "Your sha is:"
     echo
@@ -53,7 +53,7 @@ foresight() {
     echo
     echo "Here is your receipt"
     echo
-    echo "  echo -n \"${foresight}\" | openssl sha256"
+    echo "  echo -n \"${foresight}\" | openssl md5"
     echo
   else
     echo "Usage: foresight \"It's going to snow Christmas 2020\""

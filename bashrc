@@ -35,6 +35,7 @@ alias tma="tmux attach -t"
 alias tmd="tmux detach"
 alias tml="tmux ls"
 alias tms="tmux switch -t"
+alias tmk="tmux kill-session -t"
 
 # Functions
 foresight() {

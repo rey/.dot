@@ -42,7 +42,8 @@ foresight() {
   # About: Stupid function that takes a string and spits out a sha256
   # Usage: `foresight "It's going to snow Christmas 2020"
 
-  if [ ! -z "${@}" ]; then
+  # If a string is provided
+  if [[ ! -z "${@}" ]]; then
     local foresight=`echo ${TIMESTAMP}: ${@}`
     local sha=`echo -n "${foresight}" | openssl sha256`
     echo
@@ -65,9 +66,12 @@ hash() {
 
   local random_hash=`echo ${RANDOM} | openssl sha256`
   local hash_length=32
+
   # if length specified
   if [[ ! -z "${1}" ]]; then
     local hash_length=${1}
+  else
+    echo "error"
   fi
   local fresh_hash=`echo ${random_hash} | tail -c $((hash_length + 1))`
   echo "${fresh_hash}"
@@ -91,7 +95,7 @@ name() {
   # Get the last 4 digits of ${get_random}
   local get_number=`echo ${get_random} | tail -c 5`
 
-  if [ ${debug} = 1 ]; then
+  if [[ ${debug} = 1 ]]; then
     echo "  ⚡️  there are ${#adjectives[@]} adjectives"
     echo "  ⚡️  there are ${#nouns[@]} nouns"
     echo "  ⚡️  random is ${get_random}"

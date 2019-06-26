@@ -70,8 +70,6 @@ hash() {
   # if length specified
   if [[ ! -z "${1}" ]]; then
     local hash_length=${1}
-  else
-    echo "error"
   fi
   local fresh_hash=`echo ${random_hash} | tail -c $((hash_length + 1))`
   echo "${fresh_hash}"

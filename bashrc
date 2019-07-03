@@ -19,6 +19,7 @@ VISUAL=/usr/bin/vim           # set vim to be the default editor
 set -o vi                     # use vim commands in bash
 
 # alias
+alias bb='source ~/.bashrc'
 alias grep='grep --color=auto'
 alias j='jump'
 alias ls='ls -lagsh'
@@ -44,7 +45,7 @@ foresight() {
 
   # If a string is provided
   if [[ ! -z "${@}" ]]; then
-    local foresight=`echo ${TIMESTAMP}: ${@}`
+    local foresight=`echo $(date +"%Y-%m-%dT%H:%M:%S%z"): ${@}`
     local md5=`echo -n "${foresight}" | openssl md5`
     echo
     echo "Your hash is:"
@@ -103,6 +104,20 @@ name() {
   fi
 
   echo "${get_adjective}-${get_noun}-${get_number}"
+}
+
+note(){
+  # About: Add a note to ~/notes.log
+  # Usage: `note "I miss the old Kanye"`
+
+  # If a string is provided
+  if [[ ! -z "${@}" ]]; then
+    local new_note=${@}
+    # So the most recent entry is at the top
+    echo "$(date +"%Y-%m-%dT%H:%M:%S%z"): ${new_note}" | cat - ~/notes.log > temp && mv temp ~/notes.log
+  else
+    echo "Usage: note \"I miss the old Kanye\""
+  fi
 }
 
 qr() {

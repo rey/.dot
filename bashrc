@@ -21,7 +21,6 @@ set -o vi                     # use vim commands in bash
 # alias
 alias bb='source ~/.bashrc'
 alias grep='grep --color=auto'
-alias j='jump'
 alias ls='ls -lagsh'
 alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
 alias qq='git status -sb'

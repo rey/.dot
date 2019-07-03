@@ -25,6 +25,3 @@ banner_red_yellow="\n${red}★ ${yellow}★ ${red}★ ${yellow}★ ${red}★ ${y
 label_success="${green}SUCCESS${reset}:"
 label_error="${red}ERROR${reset}:"
 label_info="${blue}INFO${reset}:"
-
-# dates
-TIMESTAMP=`echo $(date +"%Y-%m-%dT%H:%M:%S%z")`

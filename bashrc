@@ -115,7 +115,7 @@ qr() {
   fi
 
   local text_or_url="${1}"
-  if [ ! -z "${text_or_url}" ]; then
+  if [[ ! -z "${text_or_url}" ]]; then
     local date=$(date +"%d%m%y_%H%M");
     qrencode \
       "${text_or_url}" \

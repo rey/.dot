@@ -111,10 +111,18 @@ note(){
   # Usage: `note "I miss the old Kanye"`
 
   # If a string is provided
-  if [[ ! -z "${@}" ]]; then
+  if [[ "${#}" == 1 ]]; then
+    if [[ "${1}" == "sync" ]]; then
+      rclone sync --skip-links --progress ~/notes.log dropbox:/
+    elif [[ "${1}" == "top" ]]; then
+      head -10 ~/notes.log
+    elif [[ "${1}" == "all" ]]; then
+      cat ~/notes.log
+    fi
+  elif [[ ! -z "${@}" ]]; then
     local new_note=${@}
     # So the most recent entry is at the top
-    echo "$(date +"%Y-%m-%dT%H:%M:%S%z"): ${new_note}" | cat - ~/notes.log > temp && mv temp ~/notes.log
+    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/notes.log > temp && mv temp ~/notes.log
   else
     echo "Usage: note \"I miss the old Kanye\""
   fi

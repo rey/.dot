@@ -26,6 +26,7 @@ alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
 alias qq='git status -sb'
 alias rr='rclone sync --skip-links --progress ~/notes.log dropbox:/'
 alias sudo='sudo '
+alias timestamp='echo $(date +"%Y-%m-%dT%H:%M:%S%z")'
 alias tree="tree -C"
 alias v='vim'
 alias vi='vim'

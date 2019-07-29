@@ -3,4 +3,4 @@ HOME=/Users/rey
 # Disable mail
 MAILTO=""
 # Run at minute 5 past every 2nd hour
-5 */2 * * * mv ${HOME}/Desktop/Screenshot* ${HOME}/Desktop/_trash > /dev/null 2>&1
+5 */2 * * * mv ${HOME}/Desktop/Screen* ${HOME}/Desktop/_trash > /dev/null 2>&1

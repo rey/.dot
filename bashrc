@@ -123,6 +123,8 @@ note() {
       echo "Showing all notes"
       echo "--"
       cat ~/${file_name}
+    elif [[ "${1}" == "edit" ]]; then
+      vim ~/${file_name}
     fi
   elif [[ ! -z "${@}" ]]; then
     local new_note=${@}

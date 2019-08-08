@@ -107,25 +107,31 @@ name() {
   echo "${get_adjective}-${get_noun}-${get_number}"
 }
 
-note(){
+note() {
   # About: Add a note to ~/notes.log
   # Usage: `note "I miss the old Kanye"`
 
+  local file_name="notes.txt"
+
   # If a string is provided
   if [[ "${#}" == 1 ]]; then
-    if [[ "${1}" == "sync" ]]; then
-      rclone sync --skip-links --progress ~/notes.log dropbox:/
-    elif [[ "${1}" == "top" ]]; then
-      head -10 ~/notes.log
-    elif [[ "${1}" == "all" ]]; then
-      cat ~/notes.log
+    if [[ "${1}" == "read" ]]; then
+      echo "Showing the last 10 notes"
+      echo "--"
+      head -10 ~/${file_name}
+    elif [[ "${1}" == "read-all" ]]; then
+      echo "Showing all notes"
+      echo "--"
+      cat ~/${file_name}
     fi
   elif [[ ! -z "${@}" ]]; then
     local new_note=${@}
     # So the most recent entry is at the top
-    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/notes.log > temp && mv temp ~/notes.log
+    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
   else
     echo "Usage: note \"I miss the old Kanye\""
+    echo "       note read"
+    echo "       note read-all"
   fi
 }
 

@@ -148,14 +148,19 @@ qr() {
 
   local text_or_url="${1}"
   if [[ ! -z "${text_or_url}" ]]; then
-    local date=$(date +"%d%m%y_%H%M");
+    local date=$(date +"%d%m%y_%H%M%S");
+    local file_name=qr_${date}_`hash 6`
     qrencode \
       "${text_or_url}" \
       --margin=1 \
-      --output ~/Desktop/qr_${date}_`hash 6`.png \
+      --output ~/Desktop/${file_name}.png \
       --size 10 \
       --foreground=ff66cc \
       --background=ffffff
+
+    if [[ "$(uname)" == "Darwin" ]]; then
+      open ~/Desktop/${file_name}.png
+    fi
   else
     echo "Usage: qr \"https://example.com\"";
   fi

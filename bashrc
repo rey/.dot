@@ -116,12 +116,12 @@ note() {
   # If a string is provided
   if [[ "${#}" == 1 ]]; then
     if [[ "${1}" == "read" ]]; then
-      echo "Showing the last 10 notes"
-      echo "--"
+      echo -e "${bold}${underline}Showing the last 10 notes${reset}"
+      echo
       head -10 ~/${file_name}
     elif [[ "${1}" == "read-all" ]]; then
-      echo "Showing all notes"
-      echo "--"
+      echo -e "${bold}${underline}Showing all notes${reset}"
+      echo
       cat ~/${file_name}
     elif [[ "${1}" == "edit" ]]; then
       vim ~/${file_name}

@@ -116,7 +116,7 @@ note() {
   # If a string is provided
   if [[ "${#}" == 1 ]]; then
     if [[ "${1}" == "read" ]]; then
-      echo -e "${bold}${underline}Showing the last 10 notes${reset}"
+      echo -e "${bold}${underline}Showing last 10 notes${reset}"
       echo
       head -10 ~/${file_name}
     elif [[ "${1}" == "read-all" ]]; then

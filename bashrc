@@ -127,7 +127,7 @@ note() {
       echo
       cat ~/${file_name}
     elif [[ "${1}" == "edit" ]]; then
-      vim ~/${file_name}
+      $EDITOR ~/${file_name}
     fi
   elif [[ ! -z "${@}" ]]; then
     local new_note=${@}

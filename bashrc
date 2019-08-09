@@ -113,6 +113,10 @@ note() {
 
   local file_name="notes.txt"
 
+  if [[ ! -f "~/${file_name}" ]]; then
+    touch ~/${file_name}
+  fi
+
   # If a string is provided
   if [[ "${#}" == 1 ]]; then
     if [[ "${1}" == "read" ]]; then
@@ -134,6 +138,7 @@ note() {
     echo "Usage: note \"I miss the old Kanye\""
     echo "       note read"
     echo "       note read-all"
+    echo "       note edit"
   fi
 }
 

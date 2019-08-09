@@ -30,7 +30,7 @@ alias tree="tree -C"
 alias v='vim'
 alias vi='vim'
 
-## tmux alias
+# tmux alias
 alias tmn="tmux new -s"
 alias tma="tmux attach -t"
 alias tmd="tmux detach"
@@ -136,8 +136,8 @@ note() {
   # if 1 specific word is entered only
   elif [[ "${#}" == 1 ]] && [[ "${1}" == "edit" ]]; then
     $EDITOR ~/${file_name}
+  # handle a permitted word(s)
   else
-    # handle a permitted word(s)
     local new_note=${@}
     # So the most recent entry is at the top
     echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}

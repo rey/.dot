@@ -113,36 +113,94 @@ note() {
 
   local file_name="notes.txt"
 
+
+  echo -e "${label_info} words entered are:"
+  echo "${@}"
+
   # check for notes file
   if [[ ! -f "~/${file_name}" ]]; then
     touch ~/${file_name}
   fi
 
-  # if no words are entered
-  if [[ -z "${@}" ]]; then
+  # if words are specified
+  if [[ ! -z "${@}" ]]; then
+  
+    # if there is only 1 word, check if it's a command
+    if [[ "${#}" == 1 ]]; then
+      case ${1} in
+        read)
+            echo -e "${bold}${underline}Showing last 10 notes${reset}"
+            echo
+            head -10 ~/${file_name}
+        ;;
+        read-all)
+            echo -e "${bold}${underline}Showing all notes${reset}"
+            echo
+            less ~/${file_name}
+        ;;
+        edit)
+            $EDITOR ~/${file_name}
+        ;;
+        *)
+          # match single word notes that are not commands
+          echo "the word that is not a command is ${1}"
+          local new_note=${1}
+        ;;
+      esac
+
+      # BUG IS THAT IT'S WRITING AN EMPTY LINE FOR COMMAND WORDS
+
+    # match notes that are multiple words
+    else
+      local new_note=${@}
+      # So the most recent entry is at the top
+    fi
+
+    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
+
+  # if there are no words
+  else
     echo "Usage: note \"I miss the old Kanye\""
     echo "       note read"
     echo "       note read-all"
     echo "       note edit"
-  # if 1 specific word is entered only
-  elif [[ "${#}" == 1 ]] && [[ "${1}" == "read" ]]; then
-    echo -e "${bold}${underline}Showing last 10 notes${reset}"
-    echo
-    head -10 ~/${file_name}
-  # if 1 specific word is entered only
-  elif [[ "${#}" == 1 ]] && [[ "${1}" == "read-all" ]]; then
-    echo -e "${bold}${underline}Showing all notes${reset}"
-    echo
-    cat ~/${file_name}
-  # if 1 specific word is entered only
-  elif [[ "${#}" == 1 ]] && [[ "${1}" == "edit" ]]; then
-    $EDITOR ~/${file_name}
-  # handle a permitted word(s)
-  else
-    local new_note=${@}
-    # So the most recent entry is at the top
-    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
   fi
+
+
+
+
+
+
+
+
+
+
+
+  # # if no words are entered
+  # if [[ -z "${@}" ]]; then
+  #   echo "Usage: note \"I miss the old Kanye\""
+  #   echo "       note read"
+  #   echo "       note read-all"
+  #   echo "       note edit"
+  # # if 1 specific word is entered only
+  # elif [[ "${#}" == 1 ]] && [[ "${1}" == "read" ]]; then
+  #   echo -e "${bold}${underline}Showing last 10 notes${reset}"
+  #   echo
+  #   head -10 ~/${file_name}
+  # # if 1 specific word is entered only
+  # elif [[ "${#}" == 1 ]] && [[ "${1}" == "read-all" ]]; then
+  #   echo -e "${bold}${underline}Showing all notes${reset}"
+  #   echo
+  #   less ~/${file_name}
+  # # if 1 specific word is entered only
+  # elif [[ "${#}" == 1 ]] && [[ "${1}" == "edit" ]]; then
+  #   $EDITOR ~/${file_name}
+  # # handle a permitted word(s)
+  # else
+  #   local new_note=${@}
+  #   # So the most recent entry is at the top
+  #   echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
+  # fi
 
 }
 

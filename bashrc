@@ -112,33 +112,37 @@ note() {
 
   local file_name="notes.txt"
 
+  # check for notes file
   if [[ ! -f "~/${file_name}" ]]; then
     touch ~/${file_name}
   fi
 
-  # If a string is provided
-  if [[ "${#}" == 1 ]]; then
-    if [[ "${1}" == "read" ]]; then
-      echo -e "${bold}${underline}Showing last 10 notes${reset}"
-      echo
-      head -10 ~/${file_name}
-    elif [[ "${1}" == "read-all" ]]; then
-      echo -e "${bold}${underline}Showing all notes${reset}"
-      echo
-      cat ~/${file_name}
-    elif [[ "${1}" == "edit" ]]; then
-      $EDITOR ~/${file_name}
-    fi
-  elif [[ ! -z "${@}" ]]; then
-    local new_note=${@}
-    # So the most recent entry is at the top
-    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
-  else
+  # if no words are entered
+  if [[ -z "${@}" ]]; then
     echo "Usage: note \"I miss the old Kanye\""
     echo "       note read"
     echo "       note read-all"
     echo "       note edit"
+  # if 1 specific word is entered only
+  elif [[ "${#}" == 1 ]] && [[ "${1}" == "read" ]]; then
+    echo -e "${bold}${underline}Showing last 10 notes${reset}"
+    echo
+    head -10 ~/${file_name}
+  # if 1 specific word is entered only
+  elif [[ "${#}" == 1 ]] && [[ "${1}" == "read-all" ]]; then
+    echo -e "${bold}${underline}Showing all notes${reset}"
+    echo
+    cat ~/${file_name}
+  # if 1 specific word is entered only
+  elif [[ "${#}" == 1 ]] && [[ "${1}" == "edit" ]]; then
+    $EDITOR ~/${file_name}
+  else
+    # handle a permitted word(s)
+    local new_note=${@}
+    # So the most recent entry is at the top
+    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
   fi
+
 }
 
 qr() {

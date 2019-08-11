@@ -112,51 +112,51 @@ note() {
   # Usage: `note "I miss the old Kanye"`
 
   local file_name="notes.txt"
+  local user_input=${@}
+  local debug=1
 
-
-  echo -e "${label_info} words entered are:"
-  echo "${@}"
 
   # check for notes file
   if [[ ! -f "~/${file_name}" ]]; then
     touch ~/${file_name}
   fi
 
-  # if words are specified
-  if [[ ! -z "${@}" ]]; then
+  # if not a string of zero length
+  if [[ ! -z "${user_input}" ]]; then
+
+    local number_of_words=`echo ${user_input} | wc -w | sed -e 's/^[[:space:]]*//'`
   
     # if there is only 1 word, check if it's a command
-    if [[ "${#}" == 1 ]]; then
-      case ${1} in
+    if [[ "${number_of_words}" == 1 ]]; then
+      case ${user_input} in
         read)
             echo -e "${bold}${underline}Showing last 10 notes${reset}"
             echo
             head -10 ~/${file_name}
+            local valid_command=1
         ;;
         read-all)
             echo -e "${bold}${underline}Showing all notes${reset}"
             echo
             less ~/${file_name}
+            local valid_command=1
         ;;
         edit)
             $EDITOR ~/${file_name}
+            local valid_command=1
         ;;
         *)
           # match single word notes that are not commands
-          echo "the word that is not a command is ${1}"
-          local new_note=${1}
+          echo "matched single word that is not a command word: ${new_note}"
         ;;
       esac
 
-      # BUG IS THAT IT'S WRITING AN EMPTY LINE FOR COMMAND WORDS
-
-    # match notes that are multiple words
-    else
-      local new_note=${@}
-      # So the most recent entry is at the top
     fi
 
-    echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
+    if [[ "${valid_command}" != 1 ]]; then
+      local new_note=${user_input}
+      echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
+    fi
 
   # if there are no words
   else
@@ -170,6 +170,11 @@ note() {
 
 
 
+  if [[ ${debug} = 1 ]]; then
+    echo "  ⚡️  @: ${@}"
+    echo "  ⚡️  user_input: ${user_input}"
+    echo "  ⚡️  number_of_words: ${number_of_words}"
+  fi
 
 
 

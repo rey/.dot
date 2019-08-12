@@ -108,13 +108,13 @@ name() {
 }
 
 note() {
-  # About: Add a note to ~/notes.log
+  # About: Add a note to ~/notes.txt
   # Usage: `note "I miss the old Kanye"`
 
+  # name of notes file
   local file_name="notes.txt"
-  local user_input=${@}
-  local debug=1
-
+  # assign any user input to `new_note` variable
+  local new_note=${@}
 
   # check for notes file
   if [[ ! -f "~/${file_name}" ]]; then
@@ -122,39 +122,38 @@ note() {
   fi
 
   # if not a string of zero length
-  if [[ ! -z "${user_input}" ]]; then
+  if [[ ! -z "${new_note}" ]]; then
 
-    local number_of_words=`echo ${user_input} | wc -w | sed -e 's/^[[:space:]]*//'`
-  
     # if there is only 1 word, check if it's a command
-    if [[ "${number_of_words}" == 1 ]]; then
-      case ${user_input} in
+    if [[ "${#}" == 1 ]]; then
+      case ${new_note} in
+        # shows the last 10 notes using `head`
         read)
             echo -e "${bold}${underline}Showing last 10 notes${reset}"
             echo
             head -10 ~/${file_name}
-            local valid_command=1
         ;;
+        # shows all notes using `less`
         read-all)
             echo -e "${bold}${underline}Showing all notes${reset}"
             echo
             less ~/${file_name}
-            local valid_command=1
         ;;
+        # open the notes file using ${EDITOR}
         edit)
-            $EDITOR ~/${file_name}
-            local valid_command=1
+            ${EDITOR} ~/${file_name}
+        ;;
+        read|read-all|edit)
+            local is_a_command=1
         ;;
         *)
           # match single word notes that are not commands
-          echo "matched single word that is not a command word: ${new_note}"
         ;;
       esac
-
     fi
 
-    if [[ "${valid_command}" != 1 ]]; then
-      local new_note=${user_input}
+    # if the note is not a command
+    if [[ "${is_a_command}" != 1 ]]; then
       echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
     fi
 
@@ -165,48 +164,6 @@ note() {
     echo "       note read-all"
     echo "       note edit"
   fi
-
-
-
-
-
-  if [[ ${debug} = 1 ]]; then
-    echo "  ⚡️  @: ${@}"
-    echo "  ⚡️  user_input: ${user_input}"
-    echo "  ⚡️  number_of_words: ${number_of_words}"
-  fi
-
-
-
-
-
-
-  # # if no words are entered
-  # if [[ -z "${@}" ]]; then
-  #   echo "Usage: note \"I miss the old Kanye\""
-  #   echo "       note read"
-  #   echo "       note read-all"
-  #   echo "       note edit"
-  # # if 1 specific word is entered only
-  # elif [[ "${#}" == 1 ]] && [[ "${1}" == "read" ]]; then
-  #   echo -e "${bold}${underline}Showing last 10 notes${reset}"
-  #   echo
-  #   head -10 ~/${file_name}
-  # # if 1 specific word is entered only
-  # elif [[ "${#}" == 1 ]] && [[ "${1}" == "read-all" ]]; then
-  #   echo -e "${bold}${underline}Showing all notes${reset}"
-  #   echo
-  #   less ~/${file_name}
-  # # if 1 specific word is entered only
-  # elif [[ "${#}" == 1 ]] && [[ "${1}" == "edit" ]]; then
-  #   $EDITOR ~/${file_name}
-  # # handle a permitted word(s)
-  # else
-  #   local new_note=${@}
-  #   # So the most recent entry is at the top
-  #   echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
-  # fi
-
 }
 
 qr() {

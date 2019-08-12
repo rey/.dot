@@ -146,6 +146,15 @@ note() {
             ${EDITOR} ~/${file_name}
             local is_a_command=1
         ;;
+        --help | -h)
+            echo "Usage: note \"I miss the old Kanye\""
+            echo "Options:"
+            echo "  -e, --edit      open the notes file using ${EDITOR}"
+            echo "  -h, --help      this help text"
+            echo "  -r, --read      show the last 10 notes"
+            echo "  -ra, --read-all show all notes"
+            local is_a_command=1
+        ;;
       esac
     fi
 
@@ -156,10 +165,7 @@ note() {
 
   # if there are no words
   else
-    echo "Usage: note \"I miss the old Kanye\""
-    echo "       note read"
-    echo "       note read-all"
-    echo "       note edit"
+    echo "note: try \"note --help\""
   fi
 }
 

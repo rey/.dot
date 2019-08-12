@@ -149,10 +149,10 @@ note() {
         --help | -h)
             echo "Usage: note \"I miss the old Kanye\""
             echo "Options:"
-            echo "  -e, --edit      open the notes file using ${EDITOR}"
-            echo "  -h, --help      this help text"
-            echo "  -r, --read      show the last 10 notes"
-            echo "  -ra, --read-all show all notes"
+            echo "  -e, --edit      Open the notes file using ${EDITOR}"
+            echo "  -h, --help      This help text"
+            echo "  -r, --read      Show the last 10 notes"
+            echo "  -ra, --read-all Show all notes"
             local is_a_command=1
         ;;
       esac

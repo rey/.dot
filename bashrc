@@ -128,21 +128,21 @@ note() {
     if [[ "${#}" == 1 ]]; then
       case ${new_note} in
         # shows the last 10 notes using `head`
-        read)
+        --read | -r)
             echo -e "${bold}${underline}Showing last 10 notes${reset}"
             echo
             head -10 ~/${file_name}
             local is_a_command=1
         ;;
         # shows all notes using `less`
-        read-all)
+        --read-all | -ra)
             echo -e "${bold}${underline}Showing all notes${reset}"
             echo
             less ~/${file_name}
             local is_a_command=1
         ;;
         # open the notes file using ${EDITOR}
-        edit)
+        --edit | -e)
             ${EDITOR} ~/${file_name}
             local is_a_command=1
         ;;

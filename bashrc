@@ -132,18 +132,18 @@ note() {
             echo -e "${bold}${underline}Showing last 10 notes${reset}"
             echo
             head -10 ~/${file_name}
+            local is_a_command=1
         ;;
         # shows all notes using `less`
         read-all)
             echo -e "${bold}${underline}Showing all notes${reset}"
             echo
             less ~/${file_name}
+            local is_a_command=1
         ;;
         # open the notes file using ${EDITOR}
         edit)
             ${EDITOR} ~/${file_name}
-        ;;
-        read|read-all|edit)
             local is_a_command=1
         ;;
         *)

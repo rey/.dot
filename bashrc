@@ -146,9 +146,6 @@ note() {
             ${EDITOR} ~/${file_name}
             local is_a_command=1
         ;;
-        *)
-          # match single word notes that are not commands
-        ;;
       esac
     fi
 

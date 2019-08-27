@@ -19,17 +19,17 @@ VISUAL=/usr/bin/vim           # set vim to be the default editor
 set -o vi                     # use vim commands in bash
 
 # alias
-alias bb='source ~/.bashrc'
-alias bv='vim ~/.bashrc'
-alias grep='grep --color=auto'
-alias ls='ls -lagsh'
-alias pwgen='pwgen 32 --numerals --capitalize --secure --symbols'
-alias qq='git status -sb'
-alias sudo='sudo '
-alias timestamp='echo $(date +"%Y-%m-%dT%H:%M:%S%z")'
+alias bb="source ~/.bashrc"
+alias bv="vim ~/.bashrc"
+alias grep="grep --color=auto"
+alias ls="ls -lagsh"
+alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
+alias qq="git status -sb"
+alias sudo="sudo "
+alias timestamp="echo $(date +"%Y-%m-%dT%H:%M:%S%z")"
 alias tree="tree -C"
-alias v='vim'
-alias vi='vim'
+alias v="vim"
+alias vi="vim"
 
 # tmux alias
 alias tmn="tmux new -s"

@@ -136,8 +136,6 @@ note() {
         ;;
         # shows all notes using `less`
         --read-all | -ra)
-            echo -e "${bold}${underline}Showing all notes${reset}"
-            echo
             less ~/${file_name}
             local is_a_command=1
         ;;

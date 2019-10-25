@@ -151,7 +151,12 @@ note() {
             echo "  -h, --help      This help text"
             echo "  -r, --read      Show the last 10 notes"
             echo "  -ra, --read-all Show all notes"
+            echo "  -v, --version   Show version number"
             local is_a_command=1
+        ;;
+        --version | -v)
+          echo "note 1.0"
+          local is_a_command=1
         ;;
       esac
     fi

@@ -25,6 +25,7 @@ alias grep="grep --color=auto"
 alias ls="ls -lagsh"
 alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
 alias qq="git status -sb"
+alias restart-audio="sudo pkill coreaudiod"
 alias sudo="sudo "
 alias timestamp="echo $(date +"%Y-%m-%dT%H:%M:%S%z")"
 alias tree="tree -C"
@@ -40,6 +41,20 @@ alias tms="tmux switch -t"
 alias tmk="tmux kill-session -t"
 
 # Functions
+
+archive() {
+  if [[ ! -z "${1}" ]]; then
+    curl \
+      --head \
+      --silent \
+      --show-error \
+      --fail \
+      https://web.archive.org/save/${1} | grep "content-location:"
+  else
+    echo "Usage: archive \"URL\""
+  fi
+}
+
 foresight() {
   # About: Stupid function that takes a string and spits out a sha256
   # Usage: `foresight "It's going to snow Christmas 2020"
@@ -198,6 +213,17 @@ qr() {
     fi
   else
     echo "Usage: qr \"https://example.com\"";
+  fi
+}
+
+wav() {
+  # If a string is provided
+  if [[ ! -z "${@}" ]]; then
+    local youtube_url=${@}
+    youtube-dl --extract-audio --audio-format wav --output ~/wav ${youtube_url}
+
+  else
+    echo "Error"
   fi
 }
 

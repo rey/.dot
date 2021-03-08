@@ -17,7 +17,7 @@
   untracked = cyan
 [user]
   name = Rey Dhuny
-  email = rey@me.com
+  email = rey@localhost
 #[push]
   #default = simple
 [core]

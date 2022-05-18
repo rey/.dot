@@ -7,9 +7,6 @@ else
   export TERM=screen-256color
 fi
 
-# include helpers
-source ~/.dot/helpers/text
-
 # ps1
 export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 
@@ -25,9 +22,7 @@ alias grep="grep --color=auto"
 alias ls="ls -lagsh"
 alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
 alias qq="git status -sb"
-alias restart-audio="sudo pkill coreaudiod"
 alias sudo="sudo "
-alias timestamp="echo $(date +"%Y-%m-%dT%H:%M:%S%z")"
 alias tree="tree -C"
 alias v="vim"
 alias vi="vim"
@@ -41,19 +36,6 @@ alias tms="tmux switch -t"
 alias tmk="tmux kill-session -t"
 
 # Functions
-
-archive() {
-  if [[ ! -z "${1}" ]]; then
-    curl \
-      --head \
-      --silent \
-      --show-error \
-      --fail \
-      https://web.archive.org/save/${1} | grep "content-location:"
-  else
-    echo "Usage: archive \"URL\""
-  fi
-}
 
 foresight() {
   # About: Stupid function that takes a string and spits out a sha256
@@ -75,21 +57,6 @@ foresight() {
   else
     echo "Usage: foresight \"It's going to snow Christmas 2020\""
   fi
-}
-
-hash() {
-  # About: Stupid function to generate a "random" hash
-  # Usage: `hash` or specify a hash length `hash 6`
-
-  local random_hash=`echo ${RANDOM} | openssl md5`
-  local hash_length=32
-
-  # if length specified
-  if [[ ! -z "${1}" ]]; then
-    local hash_length=${1}
-  fi
-  local fresh_hash=`echo ${random_hash} | tail -c $((hash_length + 1))`
-  echo "${fresh_hash}"
 }
 
 name() {
@@ -213,17 +180,6 @@ qr() {
     fi
   else
     echo "Usage: qr \"https://example.com\"";
-  fi
-}
-
-wav() {
-  # If a string is provided
-  if [[ ! -z "${@}" ]]; then
-    local youtube_url=${@}
-    youtube-dl --extract-audio --audio-format wav --output ~/wav ${youtube_url}
-
-  else
-    echo "Error"
   fi
 }
 

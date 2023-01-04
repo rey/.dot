@@ -20,6 +20,7 @@ alias bb="source ~/.bashrc"
 alias bv="vim ~/.bashrc"
 alias grep="grep --color=auto"
 alias ls="ls -lagsh"
+alias nosleep="caffeinate -d -t 3600"
 alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
 alias qq="git status -sb"
 alias sudo="sudo "
@@ -158,7 +159,7 @@ qr() {
   # About: Generates a QR code given a string or URL and puts it in the ~/Desktop folder"
   # Usage: `qr "https://example.com`
 
-  # Check that qrencode is installed
+  # If qrencode is not installed then throw an error
   if ! [[ -x "$(command -v qrencode)" ]]; then
     echo "ERROR: qrencode is not installed: brew install qrencode then try again"
   fi

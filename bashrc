@@ -25,6 +25,7 @@ alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
 alias qq="git status -sb"
 alias sudo="sudo "
 alias tree="tree -C"
+alias uuid="uuidgen | tr "[:upper:]" "[:lower:]""
 alias v="vim"
 alias vi="vim"
 

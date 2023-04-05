@@ -185,4 +185,4 @@ qr() {
   fi
 }
 
-export PATH="$HOME/.npm-packages/bin:$PATH"
+export PATH=/opt/homebrew/bin:$PATH

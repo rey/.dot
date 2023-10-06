@@ -28,7 +28,7 @@ alias tree="tree -C"
 alias uuid="uuidgen | tr "[:upper:]" "[:lower:]""
 alias v="vim"
 alias vi="vim"
-alias wav="yt-dlp --extract-audio --audio-format wav --audio-quality 0 --output ~/Desktop"
+alias wav="yt-dlp --extract-audio --audio-format wav --audio-quality 0 --paths ~/Desktop/"
 
 # tmux alias
 alias tmn="tmux new -s"

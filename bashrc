@@ -1,3 +1,7 @@
+# exports
+export HISTTIMEFORMAT="%F %T "
+export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+
 # $TMUX variable
 if [ -z $TMUX ]; then
   # $TMUX isn't set
@@ -7,13 +11,10 @@ else
   export TERM=screen-256color
 fi
 
-# ps1
-export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+export EDITOR=/usr/bin/vim           # set vim to be the default editor
+export VISUAL=/usr/bin/vim           # set vim to be the default editor
 
-EDITOR=/usr/bin/vim           # set vim to be the default editor
-VISUAL=/usr/bin/vim           # set vim to be the default editor
-
-set -o vi                     # use vim commands in bash
+set -o vi                            # use vim commands in bash
 
 # alias
 alias bb="source ~/.bashrc"
@@ -175,8 +176,8 @@ qr() {
       --margin=1 \
       --output ~/Desktop/${file_name}.png \
       --size 10 \
-      --foreground=ff66cc \
-      --background=ffffff
+      --foreground=ffffff \
+      --background=ff66cc
 
     if [[ "$(uname)" == "Darwin" ]]; then
       open ~/Desktop/${file_name}.png

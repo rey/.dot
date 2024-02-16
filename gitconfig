@@ -18,8 +18,8 @@
 [user]
   name = Rey Dhuny
   email = rey@localhost
-#[push]
-  #default = simple
+[push]
+  default = current
 [core]
   editor = /usr/bin/vim
   excludesfile = ~/.gitignore_global

@@ -20,6 +20,7 @@ set -o vi                            # use vim commands in bash
 alias bb="source ~/.bashrc"
 alias bv="vim ~/.bashrc"
 alias grep="grep --color=auto"
+alias lm="limactl"
 alias ls="ls -lagsh"
 alias nosleep="caffeinate -d -t 3600"
 alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
@@ -29,8 +30,7 @@ alias tree="tree -C"
 alias uuid="uuidgen | tr "[:upper:]" "[:lower:]""
 alias v="vim"
 alias vi="vim"
-alias wav="yt-dlp --extract-audio --audio-format wav --audio-quality 0 --paths ~/Desktop/"
-
+alias wav="yt-dlp --extract-audio --audio-format wav --audio-quality 0 --paths ~/Desktop/_samples/ --output \"%(title)s.%(ext)s\""
 # tmux alias
 alias tmn="tmux new -s"
 alias tma="tmux attach -t"

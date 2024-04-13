@@ -1,1 +1,8 @@
+# macOS
 .DS_Store
+
+# A5n
+Backup/*.als
+*.wav.asd
+
+

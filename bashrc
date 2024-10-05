@@ -173,11 +173,11 @@ qr() {
     local file_name=qr_${date}
     qrencode \
       "${text_or_url}" \
-      --margin=1 \
+      --margin=0 \
       --output ~/Desktop/${file_name}.png \
       --size 10 \
       --foreground=ffffff \
-      --background=ff66cc
+      --background=9370db
 
     if [[ "$(uname)" == "Darwin" ]]; then
       open ~/Desktop/${file_name}.png
@@ -185,6 +185,67 @@ qr() {
   else
     echo "Usage: qr \"https://example.com\"";
   fi
+}
+
+track() {
+
+  # Get current date in YYYY-MM-DD format
+  current_date=$(date +"%Y-%m-%d")
+
+  # Check if at least one argument is provided
+  if [ $# -eq 0 ]; then
+    # No argument provided, prompt for input
+    read -p "Enter project name: " project_name
+  else
+    # Use the first argument as input
+    project_name="$1"
+  fi
+
+  # Remove spaces and replace with hyphens in project name
+  project_filename="${current_date}-${project_name// /-}"
+
+  # Loop until user confirms project filename
+  while true; do
+    echo "Your project filename will be: ${project_filename}"
+
+    # Prompt for confirmation (y/N)
+    read -p "Are you happy with this filename (y/N)? " confirm
+
+    case "$confirm" in
+      [Yy]*)  # User confirms, exit loop
+        break
+        ;;
+      [Nn]*)  # User wants to edit, prompt for new name
+        read -p "Enter a new project name: " new_name
+        project_name="$new_name"
+        project_filename="${current_date}-${project_name// /-}"
+        ;;
+      *) echo "Invalid input. Please enter 'y' or 'N'." ;;
+    esac
+  done
+
+  # Base path for project directory
+  base_dir="/Volumes/REYREYREY/New projects"
+
+  # Create project directory structure with filename embedded
+  mkdir -p "${base_dir}/${project_filename}"
+
+  # Notes file
+  touch "${base_dir}/${project_filename}/${project_filename}.txt"
+
+  # MPC
+  mkdir -p "${base_dir}/${project_filename}/MPC"
+
+  # create file to click on: `.xpj` file so it will show up in MPC file explorer
+  touch "${base_dir}/${project_filename}/MPC/${project_filename}.xpj"
+
+  # A5n
+  mkdir -p "${base_dir}/${project_filename}/A5n"
+
+  # create file to click on
+  touch "${base_dir}/${project_filename}/A5n/${project_filename}"
+
+  echo "Project directory '${project_filename}' created successfully!"
 }
 
 export PATH=/opt/homebrew/bin:$PATH

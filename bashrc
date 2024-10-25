@@ -20,7 +20,6 @@ set -o vi                            # use vim commands in bash
 alias bb="source ~/.bashrc"
 alias bv="vim ~/.bashrc"
 alias grep="grep --color=auto"
-alias lm="limactl"
 alias ls="ls -lagsh"
 alias nosleep="caffeinate -d -t 3600"
 alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"

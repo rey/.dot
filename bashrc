@@ -20,7 +20,7 @@ set -o vi                            # use vim commands in bash
 alias bb="source ~/.bashrc"
 alias bv="vim ~/.bashrc"
 alias grep="grep --color=auto"
-alias ls="ls -lagsh"
+alias ls="ls -laghtG"
 alias nosleep="caffeinate -d -t 3600"
 alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
 alias qq="git status -sb"
@@ -31,12 +31,13 @@ alias v="vim"
 alias vi="vim"
 alias wav="yt-dlp --extract-audio --audio-format wav --audio-quality 0 --paths ~/Desktop/_samples/ --output \"%(title)s.%(ext)s\""
 # tmux alias
-alias tmn="tmux new -s"
-alias tma="tmux attach -t"
-alias tmd="tmux detach"
-alias tml="tmux ls"
-alias tms="tmux switch -t"
+alias tmn="tmux new-session -s"
+alias tma="tmux attach-session -t"
+alias tmd="tmux detach-client"
+alias tml="tmux list-sessions"
+alias tms="tmux switch-client -t"
 alias tmk="tmux kill-session -t"
+alias tmr="tmux rename-session -t"
 
 # Functions
 

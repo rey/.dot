@@ -24,7 +24,6 @@ alias ls="ls -laghtG"
 alias nosleep="caffeinate -d -t 3600"
 alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
 alias qq="git status -sb"
-alias rec="yap listen-and-dictate --vtt --mic-label Rey --system-label 'Meeting Participant(s)' > ~/Documents/Meetings/Adhoc\ Transcriptions/$(date +'%Y-%m-%d-%H:%M')-adhoc-recording.vtt.txt"
 alias sudo="sudo "
 alias tree="tree -C"
 alias uuid="uuidgen | tr "[:upper:]" "[:lower:]""
@@ -157,6 +156,29 @@ note() {
   else
     echo "note: try \"note --help\""
   fi
+}
+
+rec() {
+  # About: Record an adhoc meeting transcript using yap
+  # Usage: `rec`
+
+  if ! [[ -x "$(command -v yap)" ]]; then
+    echo "ERROR: yap is not installed: brew install yap then try again"
+    return 1
+  fi
+
+  local timestamp=$(date +'%Y-%m-%d-%H-%M')
+  local outfile=~/Documents/Meetings/Adhoc\ Transcriptions/${timestamp}-adhoc-recording.vtt.txt
+
+  read -p "Attendees (Enter to skip): " attendees
+
+  yap listen-and-dictate --vtt --mic-label Rey --system-label 'Meeting Participant(s)' > "$outfile"
+
+  if [[ -n "$attendees" ]]; then
+    printf '\nNOTE\nAttendees: %s\n' "$attendees" >> "$outfile"
+  fi
+
+  echo "Saved: $outfile"
 }
 
 qr() {

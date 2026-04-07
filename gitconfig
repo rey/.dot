@@ -1,7 +1,5 @@
 [color]
-  branch = auto
-  diff = auto
-  status = auto
+  ui = auto
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -12,14 +10,14 @@
   old = red bold
   new = green bold
 [color "status"]
-  added = yellow
-  changed = green
+  added = green
+  changed = yellow
   untracked = cyan
 [user]
   name = Rey Dhuny
-  email = rey@localhost
+  email = 37158+rey@users.noreply.github.com
 [push]
-  default = current
+  default = simple
 [core]
   editor = /usr/bin/vim
   excludesfile = ~/.gitignore_global

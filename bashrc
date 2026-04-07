@@ -26,7 +26,7 @@ alias pwgen="pwgen 32 --numerals --capitalize --secure --symbols"
 alias qq="git status -sb"
 alias sudo="sudo "
 alias tree="tree -C"
-alias uuid="uuidgen | tr "[:upper:]" "[:lower:]""
+alias uuid="uuidgen | tr '[:upper:]' '[:lower:]'"
 alias v="vim"
 alias vi="vim"
 alias wav="yt-dlp --extract-audio --audio-format wav --audio-quality 0 --paths ~/Desktop/_samples/ --output \"%(title)s.%(ext)s\""
@@ -67,30 +67,15 @@ name() {
   # About: Generates a heroku-style name
   # Usage: `name`
 
-  local debug=0
-  # Array of adjectives. Adjectives and nouns taken from: https://web.archive.org/web/20180103114041/https://gist.github.com/afriggeri/1266756
+  # Adjectives and nouns taken from: https://web.archive.org/web/20180103114041/https://gist.github.com/afriggeri/1266756
   local adjectives=(autumn hidden bitter misty silent empty dry dark summer icy delicate quiet white cool spring winter patient twilight dawn crimson wispy weathered blue billowing broken cold damp falling frosty green long late lingering bold little morning muddy old red rough still small sparkling shy wandering withered wild black young holy solitary fragrant aged snowy proud floral restless divine)
-  # Array of nouns
   local nouns=(waterfall river breeze moon rain wind sea morning snow lake sunset pine shadow leaf dawn glitter forest hill cloud meadow sun glade bird brook butterfly bush dew dust field fire flower firefly feather grass haze mountain night pond darkness snowflake silence sound sky shape surf thunder violet water wildflower wave water resonance sun wood dream cherry tree fog frost voice paper)
 
-  local get_random=$((1000 + $RANDOM % 9999))
-  # Get a random adjective
-  local get_adjective=${adjectives[${get_random} % ${#adjectives[@]}]}
-  # Get a random noun
-  local get_noun=${nouns[${get_random} % ${#nouns[@]}]}
-  # Get the last 4 digits of ${get_random}
-  local get_number=`echo ${get_random} | tail -c 5`
+  local adjective=${adjectives[$((RANDOM % ${#adjectives[@]}))]}
+  local noun=${nouns[$((RANDOM % ${#nouns[@]}))]}
+  local number=$((RANDOM % 9000 + 1000))
 
-  if [[ ${debug} = 1 ]]; then
-    echo "  ⚡️  there are ${#adjectives[@]} adjectives"
-    echo "  ⚡️  there are ${#nouns[@]} nouns"
-    echo "  ⚡️  random is ${get_random}"
-    echo "  ⚡️  adjective is ${get_adjective}"
-    echo "  ⚡️  noun is ${get_noun}"
-    echo "  ⚡️  number is ${get_number}"
-  fi
-
-  echo "${get_adjective}-${get_noun}-${get_number}"
+  echo "${adjective}-${noun}-${number}"
 }
 
 note() {

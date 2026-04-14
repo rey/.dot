@@ -22,6 +22,6 @@
   editor = /usr/bin/vim
   excludesfile = ~/.gitignore_global
 [alias]
-  lg = log --color --graph --pretty=format:'%C(cyan)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(white)<%an>%Creset' --abbrev-commit
+  lg = log --color --graph --pretty=format:'%C(bold yellow)%h%Creset -%C(bold yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [init]
   defaultBranch = trunk

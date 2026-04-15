@@ -164,6 +164,7 @@ rec() {
   fi
 
   echo "Saved: $outfile"
+  open ~/Documents/Meetings/Adhoc\ Transcriptions
 }
 
 qr() {

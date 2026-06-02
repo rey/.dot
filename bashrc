@@ -44,22 +44,22 @@ alias tmr="tmux rename-session -t"
 # Functions
 
 foresight() {
-  # About: Function that takes a string and spits out an md5 hash
+  # About: Function that takes a string and spits out a sha256 hash
   # Usage: `foresight "It's going to snow Christmas 2020"`
 
   # If a string is provided
   if [[ -n "$*" ]]; then
-    local foresight md5
+    local foresight hash
     foresight="$(date +"%Y-%m-%dT%H:%M:%S%z"): $*"
-    md5=$(echo -n "${foresight}" | openssl md5)
+    hash=$(echo -n "${foresight}" | openssl sha256 | awk '{print $NF}')
     echo
     echo "Your hash is:"
     echo
-    echo "  ${md5}"
+    echo "  ${hash}"
     echo
     echo "Here is your receipt"
     echo
-    echo "  echo -n \"${foresight}\" | openssl md5"
+    echo "  echo -n \"${foresight}\" | openssl sha256 | awk '{print \$NF}'"
     echo
   else
     echo "Usage: foresight \"It's going to snow Christmas 2020\""

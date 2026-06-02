@@ -1,6 +1,8 @@
-# My .dotfiles
+# .dot
 
-## Get the config
+## Install
 
-    git clone https://github.com/rey/.dot.git ~/.dot
-    bash ~/.dot/install.sh
+```
+git clone https://github.com/rey/.dot.git ~/.dot
+bash ~/.dot/install.bash
+```

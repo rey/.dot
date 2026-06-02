@@ -2,13 +2,15 @@
 export HISTTIMEFORMAT="%F %T "
 export PS1="\[\e[00;37m\]\h \w \[\e[0m\]\[\e[00;35m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 
-# $TMUX variable
-if [ -z $TMUX ]; then
-  # $TMUX isn't set
-  export TERM=xterm-256color
-else
-  # $TMUX is set
-  export TERM=screen-256color
+# tmux overwrites TERM_PROGRAM to "tmux" on start, hiding the real outer
+# terminal from inner programs. Many TUI tools branch on TERM_PROGRAM
+# for per-terminal palette/capability tweaks, so capture it in the outer
+# shell and restore it inside tmux. If the outer terminal doesn't set
+# TERM_PROGRAM, we leave tmux's value alone.
+if [ -z "$TMUX" ]; then
+  export OUTER_TERM_PROGRAM="$TERM_PROGRAM"
+elif [ -n "$OUTER_TERM_PROGRAM" ]; then
+  export TERM_PROGRAM="$OUTER_TERM_PROGRAM"
 fi
 
 export EDITOR=/usr/bin/vim           # set vim to be the default editor

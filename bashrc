@@ -44,13 +44,14 @@ alias tmr="tmux rename-session -t"
 # Functions
 
 foresight() {
-  # About: Stupid function that takes a string and spits out a sha256
-  # Usage: `foresight "It's going to snow Christmas 2020"
+  # About: Function that takes a string and spits out an md5 hash
+  # Usage: `foresight "It's going to snow Christmas 2020"`
 
   # If a string is provided
-  if [[ ! -z "${@}" ]]; then
-    local foresight=`echo $(date +"%Y-%m-%dT%H:%M:%S%z"): ${@}`
-    local md5=`echo -n "${foresight}" | openssl md5`
+  if [[ -n "$*" ]]; then
+    local foresight md5
+    foresight="$(date +"%Y-%m-%dT%H:%M:%S%z"): $*"
+    md5=$(echo -n "${foresight}" | openssl md5)
     echo
     echo "Your hash is:"
     echo
@@ -94,8 +95,9 @@ note() {
   case "$1" in
     # shows the last 10 notes using `head`
     --read | -r)
-      echo -e "${bold}${underline}Showing last 10 notes${reset}"
-      echo
+      local bold underline reset
+      bold=$(tput bold) underline=$(tput smul) reset=$(tput sgr0)
+      printf '%s%sShowing last 10 notes%s\n\n' "$bold" "$underline" "$reset"
       head -10 "$file"
       ;;
     # shows all notes using `less`
@@ -141,10 +143,13 @@ rec() {
     return 1
   fi
 
-  local timestamp=$(date +'%Y-%m-%d-%H-%M')
-  local outfile=~/Documents/Meetings/Adhoc\ Transcriptions/${timestamp}-adhoc-recording.vtt.txt
+  local dir=~/"Documents/Meetings/Adhoc Transcriptions"
+  local timestamp
+  timestamp=$(date +'%Y-%m-%d-%H-%M')
+  local outfile="${dir}/${timestamp}-adhoc-recording.vtt.txt"
+  local attendees
 
-  read -p "Attendees (Enter to skip): " attendees
+  read -rp "Attendees (Enter to skip): " attendees
 
   yap listen-and-dictate --vtt --mic-label Rey --system-label 'Meeting Participant(s)' > "$outfile"
 
@@ -153,47 +158,56 @@ rec() {
   fi
 
   echo "Saved: $outfile"
-  open ~/Documents/Meetings/Adhoc\ Transcriptions
+  open "$dir"
 }
 
 qr() {
-  # About: Generates a QR code given a string or URL and puts it in the ~/Desktop folder"
-  # Usage: `qr "https://example.com`
+  # About: Generates a QR code given a string or URL and puts it in ~/Desktop
+  # Usage: `qr "https://example.com"`
 
   # If qrencode is not installed then throw an error
   if ! [[ -x "$(command -v qrencode)" ]]; then
     echo "ERROR: qrencode is not installed: brew install qrencode then try again"
+    return 1
   fi
 
   local text_or_url="${1}"
-  if [[ ! -z "${text_or_url}" ]]; then
-    local date=$(date +"%d%m%y_%H%M%S")
-    local file_name=qr_${date}
+  if [[ -n "${text_or_url}" ]]; then
+    local date
+    date=$(date +"%d%m%y_%H%M%S")
+    local file_name="qr_${date}"
     qrencode \
       "${text_or_url}" \
       --margin=0 \
-      --output ~/Desktop/${file_name}.png \
+      --output ~/Desktop/"${file_name}.png" \
       --size 10 \
       --foreground=ffffff \
       --background=9370db
 
     if [[ "$(uname)" == "Darwin" ]]; then
-      open ~/Desktop/${file_name}.png
+      open ~/Desktop/"${file_name}.png"
     fi
   else
-    echo "Usage: qr \"https://example.com\"";
+    echo "Usage: qr \"https://example.com\""
   fi
 }
 
 track() {
+  # About: Scaffolds a dated music-project directory (MPC + A5n) on the REYREYREY volume
+  # Usage: `track "my song"`
 
   # Get current date in YYYY-MM-DD format
+  local current_date
   current_date=$(date +"%Y-%m-%d")
+  local project_name
+  local project_filename
+  local confirm
+  local new_name
 
   # Check if at least one argument is provided
-  if [ $# -eq 0 ]; then
+  if [[ $# -eq 0 ]]; then
     # No argument provided, prompt for input
-    read -p "Enter project name: " project_name
+    read -rp "Enter project name: " project_name
   else
     # Use the first argument as input
     project_name="$1"
@@ -207,14 +221,14 @@ track() {
     echo "Your project filename will be: ${project_filename}"
 
     # Prompt for confirmation (y/N)
-    read -p "Are you happy with this filename (y/N)? " confirm
+    read -rp "Are you happy with this filename (y/N)? " confirm
 
     case "$confirm" in
       [Yy]*)  # User confirms, exit loop
         break
         ;;
       [Nn]*)  # User wants to edit, prompt for new name
-        read -p "Enter a new project name: " new_name
+        read -rp "Enter a new project name: " new_name
         project_name="$new_name"
         project_filename="${current_date}-${project_name// /-}"
         ;;
@@ -223,7 +237,7 @@ track() {
   done
 
   # Base path for project directory
-  base_dir="/Volumes/REYREYREY/New projects"
+  local base_dir="/Volumes/REYREYREY/New projects"
 
   # Create project directory structure with filename embedded
   mkdir -p "${base_dir}/${project_filename}"

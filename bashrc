@@ -84,65 +84,52 @@ note() {
   # About: Add a note to ~/notes.txt
   # Usage: `note "I miss the old Kanye"`
 
-  # name of notes file
   local file_name="notes.txt"
-  # assign any user input to `new_note` variable
-  local new_note=${@}
+  local file=~/"${file_name}"
 
-  # check for notes file
-  if [[ ! -f "~/${file_name}" ]]; then
-    touch ~/${file_name}
-  fi
+  # ensure the notes file exists
+  [[ -f "$file" ]] || touch "$file"
 
-  # if not a string of zero length
-  if [[ ! -z "${new_note}" ]]; then
-
-    # if there is only 1 word, check if it's a command
-    if [[ "${#}" == 1 ]]; then
-      case ${new_note} in
-        # shows the last 10 notes using `head`
-        --read | -r)
-            echo -e "${bold}${underline}Showing last 10 notes${reset}"
-            echo
-            head -10 ~/${file_name}
-            local is_a_command=1
-        ;;
-        # shows all notes using `less`
-        --read-all | -ra)
-            less ~/${file_name}
-            local is_a_command=1
-        ;;
-        # open the notes file using ${EDITOR}
-        --edit | -e)
-            ${EDITOR} ~/${file_name}
-            local is_a_command=1
-        ;;
-        --help | -h)
-            echo "Usage: note \"I miss the old Kanye\""
-            echo "Options:"
-            echo "  -e, --edit      Open the notes file using ${EDITOR}"
-            echo "  -h, --help      This help text"
-            echo "  -r, --read      Show the last 10 notes"
-            echo "  -ra, --read-all Show all notes"
-            echo "  -v, --version   Show version number"
-            local is_a_command=1
-        ;;
-        --version | -v)
-          echo "note 1.0"
-          local is_a_command=1
-        ;;
-      esac
-    fi
-
-    # if the note is not a command
-    if [[ "${is_a_command}" != 1 ]]; then
-      echo "$(date +"%Y-%m-%dT%H:%M:%S%z") ${HOSTNAME}: ${new_note}" | cat - ~/${file_name} > temp && mv temp ~/${file_name}
-    fi
-
-  # if there are no words
-  else
-    echo "note: try \"note --help\""
-  fi
+  # dispatch on the first argument; anything unrecognised is a note
+  case "$1" in
+    # shows the last 10 notes using `head`
+    --read | -r)
+      echo -e "${bold}${underline}Showing last 10 notes${reset}"
+      echo
+      head -10 "$file"
+      ;;
+    # shows all notes using `less`
+    --read-all | -ra)
+      less "$file"
+      ;;
+    # open the notes file using ${EDITOR}
+    --edit | -e)
+      "${EDITOR:-vi}" "$file"
+      ;;
+    --help | -h)
+      echo "Usage: note \"I miss the old Kanye\""
+      echo "Options:"
+      echo "  -e, --edit      Open the notes file using ${EDITOR:-vi}"
+      echo "  -h, --help      This help text"
+      echo "  -r, --read      Show the last 10 notes"
+      echo "  -ra, --read-all Show all notes"
+      echo "  -v, --version   Show version number"
+      ;;
+    --version | -v)
+      echo "note 1.0"
+      ;;
+    # no input
+    "")
+      echo "note: try \"note --help\""
+      ;;
+    # anything else: prepend a timestamped note
+    *)
+      local tmp
+      tmp=$(mktemp) && \
+        printf '%s %s: %s\n' "$(date +"%Y-%m-%dT%H:%M:%S%z")" "${HOSTNAME}" "$*" \
+          | cat - "$file" > "$tmp" && mv "$tmp" "$file"
+      ;;
+  esac
 }
 
 rec() {

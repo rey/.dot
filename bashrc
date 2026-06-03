@@ -13,10 +13,10 @@ elif [ -n "$OUTER_TERM_PROGRAM" ]; then
   export TERM_PROGRAM="$OUTER_TERM_PROGRAM"
 fi
 
-export EDITOR=/usr/bin/vim           # set vim to be the default editor
-export VISUAL=/usr/bin/vim           # set vim to be the default editor
+export EDITOR=vim                   # set vim to be the default editor
+export VISUAL=vim                   # set vim to be the default editor
 
-set -o vi                            # use vim commands in bash
+set -o vi                           # use vim commands in bash
 
 # alias
 alias bb="source ~/.bashrc"

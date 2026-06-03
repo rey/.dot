@@ -1,6 +1,7 @@
 SHELL=/bin/bash
-HOME=/Users/rey
 # Disable mail
 MAILTO=""
-# Run at minute 5 past every 2nd hour
+# Move screenshots to ~/Desktop/_trash every 2 hours @ :05
 5 */2 * * * mv ${HOME}/Desktop/Screen* ${HOME}/Desktop/_trash > /dev/null 2>&1
+# Move _trash items >30 days to macOS Trash daily @ 8am
+0 8 * * * find ${HOME}/Desktop/_trash -mindepth 1 -mtime +30 -exec mv {} ${HOME}/.Trash/ \; > /dev/null 2>&1

@@ -15,6 +15,9 @@ fi
 
 export EDITOR=vim                   # set vim to be the default editor
 export VISUAL=vim                   # set vim to be the default editor
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_ASK=1
+
 
 set -o vi                           # use vim commands in bash
 
@@ -74,11 +77,44 @@ name() {
   local adjectives=(autumn hidden bitter misty silent empty dry dark summer icy delicate quiet white cool spring winter patient twilight dawn crimson wispy weathered blue billowing broken cold damp falling frosty green long late lingering bold little morning muddy old red rough still small sparkling shy wandering withered wild black young holy solitary fragrant aged snowy proud floral restless divine)
   local nouns=(waterfall river breeze moon rain wind sea morning snow lake sunset pine shadow leaf dawn glitter forest hill cloud meadow sun glade bird brook butterfly bush dew dust field fire flower firefly feather grass haze mountain night pond darkness snowflake silence sound sky shape surf thunder violet water wildflower wave water resonance sun wood dream cherry tree fog frost voice paper)
 
-  local adjective=${adjectives[$((RANDOM % ${#adjectives[@]}))]}
-  local noun=${nouns[$((RANDOM % ${#nouns[@]}))]}
+  local adj_count=${#adjectives[@]}
+  local noun_count=${#nouns[@]}
+
+  local adjective=${adjectives[$((RANDOM % adj_count))]}
+  local noun=${nouns[$((RANDOM % noun_count))]}
   local number=$((RANDOM % 9000 + 1000))
 
   echo "${adjective}-${noun}-${number}"
+}
+
+random_name() {
+  # About: Generates a docker-style name (two adjectives and a noun)
+  # Usage: `random_name`
+
+  local adjectives=(reactive bouncing swift quiet bold curious lazy eager brave calm
+                    clever daring fuzzy gentle happy jolly keen lively mighty nimble
+                    plucky quirky rustic shiny snappy sturdy witty zesty breezy chill
+                    misty golden amber dusky lunar mellow serene arctic velvet crimson
+                    wispy wandering solitary fragrant lingering patient twilight ancient
+                    hollow smoky rugged pale worn vast hushed verdant tidal frosty silver
+                    jade still dry icy delicate hidden bitter weathered broken sparkling
+                    wild floral restless divine aged snowy proud)
+
+  local nouns=(llama otter falcon cedar comet badger heron ember maple raven
+               sparrow willow coyote lynx panda tiger walrus yak zebra beetle
+               canyon fjord glacier meadow prairie summit tundra brook cove delta
+               pine shadow creek vale ridge stone drift tide gale mist flint reef
+               dune heath moor grove birch aspen crag fern peak bluff crest knoll
+               brine isle kelp loch mesa spire wren yew spruce larch moss gully)
+
+  local adj_count=${#adjectives[@]}
+  local noun_count=${#nouns[@]}
+
+  local word1=${adjectives[$((RANDOM % adj_count))]}
+  local word2=${adjectives[$((RANDOM % adj_count))]}
+  local word3=${nouns[$((RANDOM % noun_count))]}
+
+  echo "${word1}-${word2}-${word3}"
 }
 
 note() {

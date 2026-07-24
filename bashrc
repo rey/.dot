@@ -69,13 +69,23 @@ foresight() {
   fi
 }
 
-name() {
+hname() {
   # About: Generates a heroku-style name
   # Usage: `name`
 
   # Adjectives and nouns taken from: https://web.archive.org/web/20180103114041/https://gist.github.com/afriggeri/1266756
-  local adjectives=(autumn hidden bitter misty silent empty dry dark summer icy delicate quiet white cool spring winter patient twilight dawn crimson wispy weathered blue billowing broken cold damp falling frosty green long late lingering bold little morning muddy old red rough still small sparkling shy wandering withered wild black young holy solitary fragrant aged snowy proud floral restless divine)
-  local nouns=(waterfall river breeze moon rain wind sea morning snow lake sunset pine shadow leaf dawn glitter forest hill cloud meadow sun glade bird brook butterfly bush dew dust field fire flower firefly feather grass haze mountain night pond darkness snowflake silence sound sky shape surf thunder violet water wildflower wave water resonance sun wood dream cherry tree fog frost voice paper)
+  local adjectives=(autumn hidden bitter misty silent empty dry dark summer icy
+    delicate quiet white cool spring winter patient twilight dawn crimson wispy
+    weathered blue billowing broken cold damp falling frosty green long late
+    lingering bold little morning muddy old red rough still small sparkling shy
+    wandering withered wild black young holy solitary fragrant aged snowy proud
+    floral restless divine)
+  local nouns=(waterfall river breeze moon rain wind sea morning snow lake
+    sunset pine shadow leaf dawn glitter forest hill cloud meadow sun glade
+    bird brook butterfly bush dew dust field fire flower firefly feather grass
+    haze mountain night pond darkness snowflake silence sound sky shape surf
+    thunder violet water wildflower wave water resonance sun wood dream cherry
+    tree fog frost voice paper)
 
   local adj_count=${#adjectives[@]}
   local noun_count=${#nouns[@]}
@@ -87,25 +97,25 @@ name() {
   echo "${adjective}-${noun}-${number}"
 }
 
-random_name() {
+dname() {
   # About: Generates a docker-style name (two adjectives and a noun)
   # Usage: `random_name`
 
-  local adjectives=(reactive bouncing swift quiet bold curious lazy eager brave calm
-                    clever daring fuzzy gentle happy jolly keen lively mighty nimble
-                    plucky quirky rustic shiny snappy sturdy witty zesty breezy chill
-                    misty golden amber dusky lunar mellow serene arctic velvet crimson
-                    wispy wandering solitary fragrant lingering patient twilight ancient
-                    hollow smoky rugged pale worn vast hushed verdant tidal frosty silver
-                    jade still dry icy delicate hidden bitter weathered broken sparkling
-                    wild floral restless divine aged snowy proud)
+  local adjectives=(reactive bouncing swift quiet bold curious lazy eager brave
+    calm clever daring fuzzy gentle happy jolly keen lively mighty nimble
+    plucky quirky rustic shiny snappy sturdy witty zesty breezy chill misty
+    golden amber dusky lunar mellow serene arctic velvet crimson wispy
+    wandering solitary fragrant lingering patient twilight ancient hollow smoky
+    rugged pale worn vast hushed verdant tidal frosty silver jade still dry icy
+    delicate hidden bitter weathered broken sparkling wild floral restless
+    divine aged snowy proud)
 
   local nouns=(llama otter falcon cedar comet badger heron ember maple raven
-               sparrow willow coyote lynx panda tiger walrus yak zebra beetle
-               canyon fjord glacier meadow prairie summit tundra brook cove delta
-               pine shadow creek vale ridge stone drift tide gale mist flint reef
-               dune heath moor grove birch aspen crag fern peak bluff crest knoll
-               brine isle kelp loch mesa spire wren yew spruce larch moss gully)
+    sparrow willow coyote lynx panda tiger walrus yak zebra beetle canyon fjord
+    glacier meadow prairie summit tundra brook cove delta pine shadow creek
+    vale ridge stone drift tide gale mist flint reef dune heath moor grove
+    birch aspen crag fern peak bluff crest knoll brine isle kelp loch mesa
+    spire wren yew spruce larch moss gully)
 
   local adj_count=${#adjectives[@]}
   local noun_count=${#nouns[@]}

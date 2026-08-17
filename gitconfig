@@ -18,6 +18,7 @@
   email = 37158+rey@users.noreply.github.com
 [push]
   default = simple
+	autoSetupRemote = true
 [core]
   editor = /usr/bin/vim
   excludesfile = ~/.gitignore_global

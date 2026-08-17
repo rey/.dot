@@ -25,3 +25,5 @@
   lg = log --color --graph --pretty=format:'%C(bold yellow)%h%Creset -%C(bold yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [init]
   defaultBranch = trunk
+[pull]
+	rebase = true

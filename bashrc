@@ -37,6 +37,7 @@ alias vi="vim"
 alias wav="yt-dlp --extract-audio --audio-format wav --audio-quality 0 --paths ~/Desktop/_samples/ --output \"%(title)s.%(ext)s\""
 # tmux alias
 alias tmn="tmux new-session -s"
+alias tmi='tmux new-session -s "$(basename "$PWD")"'
 alias tma="tmux attach-session -t"
 alias tmd="tmux detach-client"
 alias tml="tmux list-sessions"

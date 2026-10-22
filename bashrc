@@ -55,7 +55,7 @@ foresight() {
   if [[ -n "$*" ]]; then
     local foresight hash
     foresight="$(date +"%Y-%m-%dT%H:%M:%S%z"): $*"
-    hash=$(printf '%s' "${foresight}" | openssl sha256 | awk '{print $NF}')
+    hash=$(echo -n "${foresight}" | openssl sha256 | awk '{print $NF}')
     echo
     echo "Your hash is:"
     echo
@@ -63,7 +63,7 @@ foresight() {
     echo
     echo "Here is your receipt"
     echo
-    printf "  printf '%%s' %q | openssl sha256 | awk '{print \$NF}'\n" "${foresight}"
+    echo "  echo -n \"${foresight}\" | openssl sha256 | awk '{print \$NF}'"
     echo
   else
     echo "Usage: foresight \"It's going to snow Christmas 2020\""

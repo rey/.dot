@@ -16,9 +16,10 @@
 [user]
   name = Rey Dhuny
   email = 37158+rey@users.noreply.github.com
+  signingkey = ~/.ssh/id_rsa.pub
 [push]
   default = simple
-	autoSetupRemote = true
+  autoSetupRemote = true
 [core]
   editor = /usr/bin/vim
   excludesfile = ~/.gitignore_global
@@ -27,6 +28,12 @@
 [init]
   defaultBranch = trunk
 [pull]
-	rebase = true
+  rebase = true
 [merge]
-	ff = only
+  ff = only
+[gpg]
+  format = ssh
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
